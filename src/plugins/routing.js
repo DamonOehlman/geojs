@@ -25,7 +25,7 @@ __PLUGIN__: `plugins/geo.routetools.js`
 
         rules.push({
             regex: /continue/i,
-            turnType: 'continue'
+            turn: 'continue'
         });
 
         rules.push({
@@ -44,17 +44,17 @@ __PLUGIN__: `plugins/geo.routetools.js`
 
         rules.push({
             regex: /enter\s(roundabout|rotary)/i,
-            turnType: 'roundabout'
+            turn: 'roundabout'
         });
 
         rules.push({
             regex: /take.*?ramp/i,
-            turnType: 'ramp'
+            turn: 'ramp'
         });
 
         rules.push({
             regex: /take.*?exit/i,
-            turnType: 'ramp-exit'
+            turn: 'ramp-exit'
         });
 
         rules.push({
@@ -66,18 +66,18 @@ __PLUGIN__: `plugins/geo.routetools.js`
 
         rules.push({
             regex: /proceed/i,
-            turnType: 'start'
+            turn: 'start'
         });
 
         rules.push({
             regex: /arrive/i,
-            turnType: 'arrive'
+            turn: 'arrive'
         });
 
         // "FELL THROUGH" - WTF!
         rules.push({
             regex: /fell\sthrough/i,
-            turnType: 'merge'
+            turn: 'merge'
         });
 
         return rules;
@@ -146,28 +146,6 @@ __PLUGIN__: `plugins/geo.routetools.js`
                 } // if
                 */
                 
-                // calculate the instruction totals
-                var totalTime = new TL.Duration(),
-                    totalDist = new GeoJS.Distance();
-
-                for (var ii = 0, insCount = instructions.length; ii < insCount; ii++) {
-                    var instruction = instructions[ii];
-
-                    // markup the instruction text
-                    instruction.text = instruction.text.replace(/(\w)(\/)(\w)/g, '$1 $2 $3');
-                    
-                    // add the turn type
-                    // if the manuever has not been defined, then attempt to parse the description
-                    if (! instruction.turnType) {
-                        instruction.turnType = parseTurnType(instruction.text);
-                    } // if
-
-                    // update the total time and distance for the instruction
-                    instruction.index = ii;
-                    instruction.timeTotal = totalTime = totalTime.add(instruction.time);
-                    instruction.distanceTotal = totalDist = totalDist.add(instruction.distance);
-                } // for
-                
                 // if we have a success handler, then call it
                 if (success) {
                     success(geometry, instructions);
@@ -176,12 +154,38 @@ __PLUGIN__: `plugins/geo.routetools.js`
         } // if
     } // calculate
     
+    function parse(instructions) {
+        // calculate the instruction totals
+        var totalTime = new TL.Duration(),
+            totalDist = new GeoJS.Distance();
+
+        for (var ii = 0, insCount = instructions.length; ii < insCount; ii++) {
+            var instruction = instructions[ii];
+
+            // markup the instruction text
+            instruction.text = instruction.text.replace(/(\w)(\/)(\w)/g, '$1 $2 $3');
+            
+            // add the turn type
+            // if the manuever has not been defined, then attempt to parse the description
+            if (! instruction.turn) {
+                instruction.turn = parseTurnType(instruction.text);
+            } // if
+
+            // update the total time and distance for the instruction
+            instruction.index = ii;
+            instruction.timeTotal = totalTime = totalTime.add(instruction.time);
+            instruction.distanceTotal = totalDist = totalDist.add(instruction.distance);
+        } // for
+        
+        return instructions;
+    } // parse
+    
     /**
     ### parseTurnType(text)
     To be completed
     */
     function parseTurnType(text) {
-        var turnType = 'unknown',
+        var turn = 'unknown',
             rules = customTurnTypeRules || DefaultTurnTypeRules;
         
         // run the text through the manuever rules
@@ -193,22 +197,23 @@ __PLUGIN__: `plugins/geo.routetools.js`
                 // if we have a custom check defined for the rule, then pass the text in 
                 // for the manuever result
                 if (rules[ii].customCheck) {
-                    turnType = rules[ii].customCheck(text, matches);
+                    turn = rules[ii].customCheck(text, matches);
                 }
                 // otherwise, take the manuever provided by the rule
                 else {
-                    turnType = rules[ii].turnType;
+                    turn = rules[ii].turn;
                 } // if..else
                 
                 break;
             } // if
         } // for
         
-        return turnType;
+        return turn;
     } // parseTurnType    
     
     scope.Routing = {
         calculate: calculate,
+        parse: parse,
         parseTurnType: parseTurnType,
         
         RouteData: RouteData
