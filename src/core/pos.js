@@ -43,8 +43,8 @@ Pos.prototype = {
             return 0;
         } // if
         
-        var halfdelta_lat = toRad(targetPos.lat - this.lat) >> 1;
-        var halfdelta_lon = toRad(targetPos.lon - this.lon) >> 1;
+        var halfdelta_lat = toRad(targetPos.lat - this.lat) / 2;
+        var halfdelta_lon = toRad(targetPos.lon - this.lon) / 2;
 
         // TODO: find out what a stands for, I don't like single char variables in code (same goes for c)
         var a = sin(halfdelta_lat) * sin(halfdelta_lat) + 

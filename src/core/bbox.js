@@ -94,7 +94,7 @@ BBox.prototype = {
         var size = this.size();
         
         // create a new position offset from the current min
-        return new Pos(this.min.lat + (size.y >> 1), this.min.lon + (size.x >> 1));
+        return new Pos(this.min.lat + size.y / 2, this.min.lon + size.x / 2);
     },
     
     /**
