@@ -7,7 +7,8 @@ var LAT_VARIABILITIES = [
 ];
 
 // define some constants
-var TWO_PI = Math.PI * 2,
+var IS_COMMONJS = typeof module != 'undefined' && module.exports,
+    TWO_PI = Math.PI * 2,
     HALF_PI = Math.PI / 2,
     VECTOR_SIMPLIFICATION = 3,
     DEGREES_TO_RADIANS = Math.PI / 180,
