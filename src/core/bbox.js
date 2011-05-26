@@ -9,7 +9,7 @@ function BBox(p1, p2) {
             maxPos = new Pos(MIN_LAT, MIN_LON);
 
         for (var ii = p1.length; ii--; ) {
-            var testPos = p1[ii];
+            var testPos = typeof p1[ii] == 'string' ? Pos(p1[ii]) : p1[ii];
             
             if (testPos.lat < minPos.lat) {
                 minPos.lat = testPos.lat;
@@ -57,7 +57,7 @@ BBox.prototype = {
     /**
     ### bestZoomLevel(viewport)
     */
-    bestZoomLevel: function(viewport) {
+    bestZoomLevel: function(vpWidth, vpHeight) {
         // get the constant index for the center of the bounds
         var boundsCenter = this.center(),
             maxZoom = 1000,
@@ -70,10 +70,10 @@ BBox.prototype = {
             // however a constant value is required. must find out exactly what it is.  At present, though this
             // works fine.
             bestZoomH = Math.ceil(
-                Math.log(LAT_VARIABILITIES[3] * viewport.h / delta.y) / Math.LN2),
+                Math.log(LAT_VARIABILITIES[3] * vpHeight / delta.y) / Math.LN2),
                 
             bestZoomW = Math.ceil(
-                Math.log(variability * viewport.w / delta.x) / Math.LN2);
+                Math.log(variability * vpWidth / delta.x) / Math.LN2);
 
         // _log("constant index for bbox: " + bounds + " (center = " + boundsCenter + ") is " + variabilityIndex);
         // _log("distances  = " + delta);
