@@ -61,14 +61,19 @@ BBox.prototype = {
         // get the constant index for the center of the bounds
         var boundsCenter = this.center(),
             maxZoom = 1000,
-            variabilityIndex = min(round(abs(boundsCenter.lat) * 0.05), LAT_VARIABILITIES.length),
+            variabilityIndex = Math.min(
+                Math.round(Math.abs(boundsCenter.lat) * 0.05), 
+                LAT_VARIABILITIES.length),
             variability = LAT_VARIABILITIES[variabilityIndex],
             delta = this.size(),
             // interestingly, the original article had the variability included, when in actual reality it isn't, 
             // however a constant value is required. must find out exactly what it is.  At present, though this
             // works fine.
-            bestZoomH = ceil(log(LAT_VARIABILITIES[3] * viewport.h / delta.y) / log(2)),
-            bestZoomW = ceil(log(variability * viewport.w / delta.x) / log(2));
+            bestZoomH = Math.ceil(
+                Math.log(LAT_VARIABILITIES[3] * viewport.h / delta.y) / Math.LN2),
+                
+            bestZoomW = Math.ceil(
+                Math.log(variability * viewport.w / delta.x) / Math.LN2);
 
         // _log("constant index for bbox: " + bounds + " (center = " + boundsCenter + ") is " + variabilityIndex);
         // _log("distances  = " + delta);
