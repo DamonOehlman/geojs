@@ -4,6 +4,15 @@
 ## Methods
 */
 function Distance(value) {
+    if (typeof value == 'string') {
+        var uom = (value.replace(/\d|\.|\s/g, '') || 'm').toLowerCase(),
+            multipliers = {
+                km: 1000
+            };
+
+        value = parseFloat(value) * (multipliers[uom] || 1);
+    } // if
+    
     this.meters = value || 0;
 } // Distance
 
