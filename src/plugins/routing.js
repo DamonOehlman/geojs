@@ -181,18 +181,17 @@ __PLUGIN__: `plugins/geo.routetools.js`
                 */
                 
                 // calculate the instruction totals
-                if (instructions) {
-                    var totalTime = new TL.Duration(),
-                        totalDist = new GeoJS.Distance();
+                var totalTime = new TL.Duration(),
+                    totalDist = new GeoJS.Distance();
 
-                    for (var ii = 0, insCount = routeData.instructions.length; ii < insCount; ii++) {
-                        var instruction = routeData.instructions[ii];
+                for (var ii = 0, insCount = instructions.length; ii < insCount; ii++) {
+                    var instruction = instructions[ii];
 
-                        // update the total time and distance for the instruction
-                        instruction.timeTotal = totalTime = totalTime.add(instruction.time);
-                        instruction.distanceTotal = totalDist = totalDist.add(instruction.distance);
-                    } // for
-                } // if
+                    // update the total time and distance for the instruction
+                    instruction.index = ii;
+                    instruction.timeTotal = totalTime = totalTime.add(instruction.time);
+                    instruction.distanceTotal = totalDist = totalDist.add(instruction.distance);
+                } // for
                 
                 // if we have a success handler, then call it
                 if (success) {
