@@ -37,7 +37,7 @@ function BBox(p1, p2) {
             var size = this.size();
 
             // update padding to be a third of the max size
-            padding = max(size.x, size.y) * 0.3;
+            padding = Math.max(size.x, size.y) * 0.3;
         } // if
 
         // update the min and max
@@ -138,10 +138,10 @@ BBox.prototype = {
                 var testMin = arguments[ii].min,
                     testMax = arguments[ii].max;
 
-                minPos.lat = min(minPos.lat, testMin.lat);
-                minPos.lon = min(minPos.lon, testMin.lon);
-                maxPos.lat = max(maxPos.lat, testMax.lat);
-                maxPos.lon = max(maxPos.lon, testMax.lon);
+                minPos.lat = Math.min(minPos.lat, testMin.lat);
+                minPos.lon = Math.min(minPos.lon, testMin.lon);
+                maxPos.lat = Math.max(maxPos.lat, testMax.lat);
+                maxPos.lon = Math.max(maxPos.lon, testMax.lon);
             } // if
         } // for
         
