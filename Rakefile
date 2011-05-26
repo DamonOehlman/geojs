@@ -20,6 +20,8 @@ task :compile => [] do
     # Write the concatenation to disk
     concatenation.save_to("lib/%s" % src.sub(/.*?\//, ''))
   end
+  
+  sh 'cp -r src/plugins lib';
 end
 
 task :minify => [:compile] do

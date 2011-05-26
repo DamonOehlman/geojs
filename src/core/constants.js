@@ -25,4 +25,6 @@ var TWO_PI = Math.PI * 2,
     M_PER_RAD = KM_PER_RAD * M_PER_KM,
     ECC = 0.08181919084262157,
     PHI_EPSILON = 1E-7,
-    PHI_MAXITER = 12;
+    PHI_MAXITER = 12,
+    
+    reDelimitedSplit = /[\,\s]+/;
