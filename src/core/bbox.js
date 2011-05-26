@@ -80,7 +80,10 @@ BBox.prototype = {
         // _log("optimal zoom levels: height = " + bestZoomH + ", width = " + bestZoomW);
 
         // return the lower of the two zoom levels
-        return min(isNaN(bestZoomH) ? maxZoom : bestZoomH, isNaN(bestZoomW) ? maxZoom : bestZoomW);
+        return Math.min(
+            isNaN(bestZoomH) ? maxZoom : bestZoomH, 
+            isNaN(bestZoomW) ? maxZoom : bestZoomW
+        );
     },
 
     /**
