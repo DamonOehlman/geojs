@@ -158,5 +158,12 @@ Pos.prototype = {
     */
     toString: function(delimiter) {
         return this.lat + (delimiter || ' ') + this.lon;
+    },
+    
+    /**
+    ### valid()
+    */
+    valid: function() {
+        return !(isNaN(this.lat) || isNaN(this.lon));
     }
 };
