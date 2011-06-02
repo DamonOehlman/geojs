@@ -132,10 +132,14 @@ __PLUGIN__: `plugins/geo.routetools.js`
     /* exports */
 
     /**
-    ### calculate(args)
-    To be completed
+    ### calculate(waypoints, success, error, opts)
+
+    Valid options are usually interpreted by the engine, however, the following are
+    a list of core options that are usually implemented:
+    
+    - preference - the routing preference (fastest, shortest, etc)
     */
-    function calculate(waypoints, success, error) {
+    function calculate(waypoints, success, error, opts) {
         // find an available routing engine
         var service = T5.Registry.create('service', 'routing');
         if (service) {
@@ -150,7 +154,7 @@ __PLUGIN__: `plugins/geo.routetools.js`
                 if (success) {
                     success(geometry, instructions);
                 } // if
-            }, error);
+            }, error, opts);
         } // if
     } // calculate
     
