@@ -39,16 +39,16 @@ Pos.prototype = {
     ### distanceTo(targetPos)
     */
     distanceTo: function(pos) {
-        if ((! targetPos) || this.empty() || targetPos.empty()) {
+        if ((! pos) || this.empty() || pos.empty()) {
             return 0;
         } // if
         
-        var halfdelta_lat = toRad(targetPos.lat - this.lat) / 2;
-        var halfdelta_lon = toRad(targetPos.lon - this.lon) / 2;
+        var halfdelta_lat = toRad(pos.lat - this.lat) / 2;
+        var halfdelta_lon = toRad(pos.lon - this.lon) / 2;
 
         // TODO: find out what a stands for, I don't like single char variables in code (same goes for c)
         var a = sin(halfdelta_lat) * sin(halfdelta_lat) + 
-                (cos(toRad(this.lat)) * cos(toRad(targetPos.lat))) * 
+                (cos(toRad(this.lat)) * cos(toRad(pos.lat))) * 
                 (sin(halfdelta_lon) * sin(halfdelta_lon)),
             c = 2 * atan2(sqrt(a), sqrt(1 - a));
 
