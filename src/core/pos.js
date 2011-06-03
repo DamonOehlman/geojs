@@ -74,11 +74,13 @@ Pos.prototype = {
     ### inArray(testArray)
     */
     inArray: function(testArray) {
-        for (var ii = testArray.length; ii--; ) {
-            if (this.equal(testArray[ii])) {
-                return true;
-            } // if
-        } // for
+        if (testArray) {
+            for (var ii = testArray.length; ii--; ) {
+                if (this.equal(testArray[ii])) {
+                    return true;
+                } // if
+            } // for
+        } // if
         
         return false;
     },

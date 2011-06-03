@@ -154,7 +154,7 @@ __PLUGIN__: `plugins/geo.routetools.js`
                 if (success) {
                     success(geometry, instructions);
                 } // if
-            }, error, opts);
+            }, error, opts || {});
         } // if
     } // calculate
     

@@ -1,6 +1,9 @@
 
 (function(scope) {
     
+    // define constants
+    var DEFAULT_SRS = 'EPSG:4326';
+    
     /* define some helpers */
     
     var gmlHelpers = {
@@ -17,12 +20,37 @@
                 
                 return '<gml:coordinates>' + output.join(' ') + '</gml:coordinates>';
             },
+            
+            envelope: function(args, params) {
+                return '<gml:Envelope srs="' + (params.srs || DEFAULT_SRS) + '">' + 
+                    '<gml:lowerCorner>' + new GeoJS.Pos(args.min) + '</gml:lowerCorner>' + 
+                    '<gml:upperCorner>' + new GeoJS.Pos(args.max) + '</gml:upperCorner>' + 
+                    '</gml:Envelope>';
+            },
         
-            box: function(min, max, eastingFirst) {
-                return '<gml:Box>' + gmlHelpers.coords([min, max], eastingFirst) + '</gml:Box>';
+            box: function(args, params) {
+                return '<gml:Box>' + 
+                    gmlHelpers.coords([args.min, args.max], params.eastingFirst) + 
+                    '</gml:Box>';
+            },
+            
+            point: function(args, params) {
+                return '<gml:Point srs="' + (params.srs || DEFAULT_SRS) + '">' + 
+                    gmlHelpers.coords(args.coords, params.eastingFirst) + 
+                    '</gml:Point>';
+            },
+            
+            linestring: function(args, params) {
+                return '<gml:LineString srs="' + (params.srs || DEFAULT_SRS) + '">' + 
+                    gmlHelpers.coords(args.coords, params.eastingFirst) + 
+                    '</gml:LineString>';
             }
         },
         ogcHelpers = {
+            distance: function(distance, units) {
+                return '<ogc:Distance units="' + units + '">' + distance + '</ogc:Distance>';
+            },
+            
             propName: function(property) {
                 return '<ogc:PropertyName>' + property + '</ogc:PropertyName>';
             }
@@ -34,9 +62,18 @@
         return '' + 
             '<ogc:BBOX>' + 
               ogcHelpers.propName(args.property) + 
-              gmlHelpers.box(args.min, args.max, params.eastingFirst) +
+              gmlHelpers.envelope(args, params) +
             '</ogc:BBOX>';
     } // bboxOGC
+    
+    function dwithinOGC(args, params) {
+        return '' +
+            '<ogc:DWithin>' + 
+              ogcHelpers.propName(args.property) + 
+              ogcHelpers.distance(args.distance, args.units) + 
+              gmlHelpers[args.type.toLowerCase()](args, params) +
+            '</ogc:DWithin>';
+    } // dwithinOGC
     
     function likeOGC(args, params) {
         var matchCase = false;
@@ -62,6 +99,10 @@
             bbox: {
                 req: ['property', 'min', 'max']
             },
+            
+            dwithin: {
+                req: ['property', 'type', 'distance', 'units', 'coords']
+            },
         
             like: {
                 req: ['property', 'value'],
@@ -74,6 +115,7 @@
         },
         ogcBuilders = {
             bbox: bboxOGC,
+            dwithin: dwithinOGC,
             like: likeOGC,
             compound: compoundOGC
         };
