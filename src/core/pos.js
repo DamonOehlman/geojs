@@ -47,10 +47,10 @@ Pos.prototype = {
         var halfdelta_lon = ((pos.lon - this.lon) * DEGREES_TO_RADIANS) / 2;
 
         // TODO: find out what a stands for, I don't like single char variables in code (same goes for c)
-        var a = sin(halfdelta_lat) * sin(halfdelta_lat) + 
-                (cos(this.lat * DEGREES_TO_RADIANS) * cos(pos.lat * DEGREES_TO_RADIANS)) * 
-                (sin(halfdelta_lon) * sin(halfdelta_lon)),
-            c = 2 * atan2(sqrt(a), sqrt(1 - a));
+        var a = Math.sin(halfdelta_lat) * Math.sin(halfdelta_lat) + 
+                (Math.cos(this.lat * DEGREES_TO_RADIANS) * Math.cos(pos.lat * DEGREES_TO_RADIANS)) * 
+                (Math.sin(halfdelta_lon) * Math.sin(halfdelta_lon)),
+            c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
         // calculate the distance
         return KM_PER_RAD * c;
@@ -97,7 +97,7 @@ Pos.prototype = {
             radLat = this.lat * DEGREES_TO_RADIANS,
             radLon = this.lon * DEGREES_TO_RADIANS,
             newLat = radLat + radOffsetLat,
-            deltaLon = asin(sin(radOffsetLon) / cos(radLat)),
+            deltaLon = Math.asin(Math.sin(radOffsetLon) / Math.cos(radLat)),
             newLon = radLon + deltaLon;
            
         // if the new latitude has wrapped, then update
@@ -129,7 +129,7 @@ Pos.prototype = {
         // COG.Log.info("min lat = " + minLat + ", max lat = " + maxLat);
 
         if ((minLat > MIN_LAT_RAD) && (maxLat < MAX_LAT_RAD)) {
-            var deltaLon = asin(sin(radDist) / cos(radLat));
+            var deltaLon = Math.asin(Math.sin(radDist) / Math.cos(radLat));
 
             // determine the min longitude
             minLon = radLon - deltaLon;
@@ -144,8 +144,8 @@ Pos.prototype = {
             } // if
         }
         else {
-            minLat = max(minLat, MIN_LAT_RAD);
-            maxLat = min(maxLat, MAX_LAT_RAD);
+            minLat = Math.max(minLat, MIN_LAT_RAD);
+            maxLat = Math.min(maxLat, MAX_LAT_RAD);
             minLon = MIN_LON;
             maxLon = MAX_LON;
         } // if..else
