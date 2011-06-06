@@ -39,4 +39,10 @@ describe('line', function() {
             expect(Math.floor(distance.segments[ii] * 1000)).toEqual(segmentMeters[ii]);
         } // for
     });
+    
+    // test that we can traverse the line
+    it('can be traversed', function() {
+        var pos = new GeoJS.Line(testPositions).traverse(0.1);
+        checkPos(pos, '-27.474 153.118');
+    });
 });

@@ -3,6 +3,9 @@
 
 ## Methods
 
+### bearing(target)
+Return the bearing in degrees to the target position.
+
 ### copy()
 Return a copy of the position
 
@@ -14,10 +17,13 @@ returned is in KM.
 Determine whether or not the position is equal to the test position.
 
 ### empty()
-Return true if the position is empty/
+Return true if the position is empty
+
+### to(dest, distance)
+Calculate the position that sits between the destination Pos for the given distance.
 
 */
-function Pos(p1, p2) {
+function Pos(p1, p2, radius) {
     // if the first parameter is a string, then parse the value
     if (p1 && p1.split) {
         var coords = p1.split(reDelimitedSplit);
@@ -37,10 +43,24 @@ function Pos(p1, p2) {
     // initialise the position
     this.lat = parseFloat(p1 || 0);
     this.lon = parseFloat(p2 || 0);
+    this.radius = radius || KM_PER_RAD;
 } // Pos constructor
 
 Pos.prototype = {
     constructor: Pos,
+
+    // adapted from: http://www.movable-type.co.uk/scripts/latlong.html
+    bearing: function(target) {
+        var lat1 = this.lat * DEGREES_TO_RADIANS,
+            lat2 = target.lat * DEGREES_TO_RADIANS,
+            dlon = (target.lon - this.lon) * DEGREES_TO_RADIANS,
+            y = Math.sin(dlon) * Math.cos(lat2),
+            x = Math.cos(lat1) * Math.sin(lat2) -
+                Math.sin(lat1) * Math.cos(lat2) * Math.cos(dlon),
+            brng = Math.atan2(y, x);
+
+        return (brng * RADIANS_TO_DEGREES + 360) % 360;        
+    },
     
     copy: function() {
         return new Pos(this.lat, this.lon);
@@ -61,7 +81,7 @@ Pos.prototype = {
             c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
         // calculate the distance
-        return KM_PER_RAD * c;
+        return this.radius * c;
     },
     
     equalTo: function(testPos) {
@@ -94,8 +114,8 @@ Pos.prototype = {
     km distance)
     */
     offset: function(latOffset, lonOffset) {
-        var radOffsetLat = latOffset / KM_PER_RAD,
-            radOffsetLon = lonOffset / KM_PER_RAD,
+        var radOffsetLat = latOffset / this.radius,
+            radOffsetLon = lonOffset / this.radius,
             radLat = this.lat * DEGREES_TO_RADIANS,
             radLon = this.lon * DEGREES_TO_RADIANS,
             newLat = radLat + radOffsetLat,
@@ -107,6 +127,31 @@ Pos.prototype = {
         newLon = newLon % TWO_PI;
         
         return new Pos(newLat * RADIANS_TO_DEGREES, newLon * RADIANS_TO_DEGREES);
+    },
+    
+    // adapted from: http://www.movable-type.co.uk/scripts/latlong.html
+    to: function(bearing, distance) {
+        // if the bearing is specified as an object, then assume
+        // we have been passed a position so get the bearing
+        if (typeof bearing == 'object') {
+            bearing = this.bearing(bearing);
+        } // if
+        
+        var radDist = distance / this.radius,
+            radBearing = bearing * DEGREES_TO_RADIANS,
+            lat1 = this.lat * DEGREES_TO_RADIANS,
+            lon1 = this.lon * DEGREES_TO_RADIANS,
+            lat2 = Math.asin(Math.sin(lat1) * Math.cos(radDist) + 
+                    Math.cos(lat1) * Math.sin(radDist) * Math.cos(radBearing)),
+            lon2 = lon1 + Math.atan2(
+                    Math.sin(radBearing) * Math.sin(radDist) * Math.cos(lat1), 
+                    Math.cos(radDist) - Math.sin(lat1) * Math.sin(lat2)
+            );
+            
+      // normalize the longitude
+      lon2 = (lon2+3*Math.PI)%(2*Math.PI) - Math.PI;  // normalise to -180...+180
+
+      return new Pos(lat2 * RADIANS_TO_DEGREES, lon2 * RADIANS_TO_DEGREES);
     },
     
     /**
