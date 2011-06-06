@@ -1,6 +1,7 @@
 (function() {
     //= require "core/constants"
     //= require "core/pos"
+    //= require "core/line"
     //= require "core/bbox"
     //= require "core/distance"
     
@@ -8,6 +9,7 @@
     
     var GeoJS = this.GeoJS = {
         Pos: Pos,
+        Line: Line,
         BBox: BBox,
         Distance: Distance,
         

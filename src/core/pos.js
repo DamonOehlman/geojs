@@ -2,6 +2,20 @@
 # GeoJS.Pos 
 
 ## Methods
+
+### copy()
+Return a copy of the position
+
+### distanceTo(target)
+Calculate the distance to the specified target position.  The distance
+returned is in KM.
+
+### equalTo(testPos)
+Determine whether or not the position is equal to the test position.
+
+### empty()
+Return true if the position is empty/
+
 */
 function Pos(p1, p2) {
     // if the first parameter is a string, then parse the value
@@ -28,16 +42,10 @@ function Pos(p1, p2) {
 Pos.prototype = {
     constructor: Pos,
     
-    /**
-    ### copy()
-    */
     copy: function() {
         return new Pos(this.lat, this.lon);
     },
     
-    /**
-    ### distanceTo(targetPos)
-    */
     distanceTo: function(pos) {
         if ((! pos) || this.empty() || pos.empty()) {
             return 0;
@@ -56,16 +64,10 @@ Pos.prototype = {
         return KM_PER_RAD * c;
     },
     
-    /**
-    ### equalTo(testPos)
-    */
     equalTo: function(testPos) {
         return pos && (this.lat === testPos.lat) && (this.lon === testPos.lon);
     },
     
-    /**
-    ### empty()
-    */
     empty: function() {
         return this.lat === 0 && this.lon === 0;
     },
