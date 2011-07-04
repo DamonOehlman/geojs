@@ -6,32 +6,26 @@
     //= require "core/distance"
     
     //= require "core/functions"
+    //= require "core/plugins"
+    
+    //= require "core/duration"
     
     var GeoJS = this.GeoJS = {
+        plugins: {},
+        
         Pos: Pos,
         Line: Line,
         BBox: BBox,
         Distance: Distance,
         
         generalize: generalize,
-    
-        include: function(input) {
-            if (IS_COMMONJS) {
-                var plugins = input.split(','),
-                    pluginName;
-                
-                for (var ii = 0; ii < plugins.length; ii++) {
-                    var plugin = require('./plugins/' + plugins[ii].trim());
-                    
-                    // iterate through the plugin and add members to GeoJS
-                    for (var key in plugin) {
-                        GeoJS[key] = plugin[key];
-                    } // for
-                } // for
-            }
-            
-            return GeoJS;
-        }
+        
+        // time types and helpers
+        Duration: Duration,
+        parseDuration: parseDuration,
+        
+        define: define,
+        include: include
     };
     
     if (IS_COMMONJS) {

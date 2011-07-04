@@ -1,13 +1,4 @@
-/**
-# T5.RouteTools
-__PLUGIN__: `plugins/geo.routetools.js`
-
-
-## Events
-
-## Module Methods
-*/
-(function(scope) {
+(function() {
     
     /* internals */
     
@@ -160,7 +151,7 @@ __PLUGIN__: `plugins/geo.routetools.js`
     
     function parse(instructions) {
         // calculate the instruction totals
-        var totalTime = new TL.Duration(),
+        var totalTime = new GeoJS.Duration(),
             totalDist = new GeoJS.Distance();
 
         for (var ii = 0, insCount = instructions.length; ii < insCount; ii++) {
@@ -172,7 +163,7 @@ __PLUGIN__: `plugins/geo.routetools.js`
             instruction.text = text.replace(/(\w)(\/)(\w)/g, '$1 $2 $3');
             
             // convert the time into a timelord duration
-            instruction.time = new TL.Duration(instruction.time);
+            instruction.time = new GeoJS.Duration(instruction.time);
             
             // add the turn type
             // if the manuever has not been defined, then attempt to parse the description
@@ -218,13 +209,21 @@ __PLUGIN__: `plugins/geo.routetools.js`
         } // for
         
         return turn;
-    } // parseTurnType    
+    } // parseTurnType
     
-    scope.Routing = {
+    /**
+    ### run(waypoints, options, callback)
+    */
+    function run(waypoints, options, callback) {
+        callback('No routing service implemented');
+    } // run
+    
+    GeoJS.define('routing', {
         calculate: calculate,
         parse: parse,
         parseTurnType: parseTurnType,
+        run: run,
         
         RouteData: RouteData
-    };
-})(typeof module != 'undefined' && module.exports ? module.exports : GeoJS);
+    });
+})();

@@ -1,4 +1,4 @@
-(function(scope) {
+(function() {
     
     /* Address prototype */
     
@@ -172,8 +172,7 @@
     } // removeEmptyParts
     
     /* exports */
-    
-    scope.Addressing = {
+    GeoJS.define('addressing', {
         parse: function(input, locale) {
             if (typeof input == 'string') {
                 var parser = localeParsers[locale] || localeParsers.EN;
@@ -184,5 +183,5 @@
                 return new Address(input);
             } // if..else
         }
-    };
-})(typeof module != 'undefined' && module.exports ? module.exports : GeoJS);
+    });
+})();

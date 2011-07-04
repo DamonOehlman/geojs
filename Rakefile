@@ -6,11 +6,12 @@ task :default => [:compile]
 task :compile => [] do
   files = FileList.new
     .include("src/geojs.js")
+    .include("src/plugins/*.js")
   
   files.each do |src|
     secretary = Sprockets::Secretary.new(
       :asset_root   => "dist",
-      :load_path    => [],
+      :load_path    => ["/development/projects/github/sidelab/"],
       :source_files => [src]
     )
 
@@ -21,7 +22,7 @@ task :compile => [] do
     concatenation.save_to("lib/%s" % src.sub(/.*?\//, ''))
   end
   
-  sh 'cp -r src/plugins lib';
+  # sh 'cp -r src/plugins lib';
 end
 
 task :minify => [:compile] do
