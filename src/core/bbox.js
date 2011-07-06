@@ -44,6 +44,10 @@ function BBox(p1, p2) {
         this.min = new Pos(minPos.lat - padding, (minPos.lon - padding) % 360);
         this.max = new Pos(maxPos.lat + padding, (maxPos.lon + padding) % 360);
     }
+    else if (p1 && p1.min) {
+        this.min = new Pos(p1.min);
+        this.max = new Pos(p1.max);
+    }
     // otherwise, assign p1 to the min pos and p2 to the max
     else {
         this.min = p1;
