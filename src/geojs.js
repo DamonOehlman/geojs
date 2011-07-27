@@ -2,7 +2,9 @@
     
     /* internals */
     
-    var loadedPlugins = {};
+    var loadedPlugins = {},
+        reTrim = /^(.*)\s+$/,
+        reDots = /\./g;
     
     function define(id, definition) {
         loadedPlugins[id] = definition;
@@ -13,7 +15,7 @@
             requestedPlugins = [];
 
         for (var ii = 0; ii < plugins.length; ii++) {
-            var pluginId = plugins[ii].trim().replace('.', '/');
+            var pluginId = plugins[ii].replace(reTrim, '$1').replace(reDots, '/');
             requestedPlugins[ii] = loadedPlugins[pluginId];
         } // for
         
@@ -27,7 +29,7 @@
             pluginName;
 
         for (var ii = 0; ii < plugins.length; ii++) {
-            var pluginId = plugins[ii].trim().replace('.', '/'),
+            var pluginId = plugins[ii].replace(reTrim, '$1').replace(reDots, '/'),
                 plugin;
 
             if (! loadedPlugins[pluginId]) {
@@ -36,9 +38,10 @@
                 
                 if (IS_COMMONJS) {
                     plugin = require('./plugins/' + pluginFile);
-                } // if
-
-                // TODO: add $LABjs loading here also
+                }
+                else if (labLoader) {
+                    // TODO: add $LABjs loading here also
+                } // if..else
             } // for
         } // for
 

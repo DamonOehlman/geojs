@@ -11,20 +11,22 @@ function BBox(p1, p2) {
         for (var ii = p1.length; ii--; ) {
             var testPos = typeof p1[ii] == 'string' ? new Pos(p1[ii]) : p1[ii];
             
-            if (testPos.lat < minPos.lat) {
-                minPos.lat = testPos.lat;
-            } // if
-            
-            if (testPos.lat > maxPos.lat) {
-                maxPos.lat = testPos.lat;
-            } // if
-            
-            if (testPos.lon < minPos.lon) {
-                minPos.lon = testPos.lon;
-            } // if
-            
-            if (testPos.lon > maxPos.lon) {
-                maxPos.lon = testPos.lon;
+            if (testPos) {
+                if (testPos.lat < minPos.lat) {
+                    minPos.lat = testPos.lat;
+                } // if
+
+                if (testPos.lat > maxPos.lat) {
+                    maxPos.lat = testPos.lat;
+                } // if
+
+                if (testPos.lon < minPos.lon) {
+                    minPos.lon = testPos.lon;
+                } // if
+
+                if (testPos.lon > maxPos.lon) {
+                    maxPos.lon = testPos.lon;
+                } // if
             } // if
         } // for
         
