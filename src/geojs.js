@@ -59,15 +59,15 @@
         return GeoJS;
     } // plugin
     
-    //= require "core/constants"
-    //= require "core/pos"
-    //= require "core/line"
-    //= require "core/bbox"
-    //= require "core/distance"
+    //= core/constants
+    //= core/pos
+    //= core/line
+    //= core/bbox
+    //= core/distance
     
-    //= require "core/functions"
+    //= core/functions
     
-    //= require "core/duration"
+    //= core/duration
     
     var GeoJS = this.GeoJS = {
         Pos: Pos,

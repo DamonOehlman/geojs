@@ -1,8 +1,8 @@
 // ensure that we have addressing
 GeoJS.include('addressing,routing', function(addressing, routing) {
-    //= require <cog/cogs/jsonp>
+    //= cog!jsonp
     
-    //= require "decarta/routing"
+    //= decarta/routing
     
     // assign the decarta routing method
     routing.run = function(waypoints, options, callback) {
