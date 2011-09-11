@@ -1,4 +1,4 @@
-module.exports = (function() {
+(typeof module != 'undefined' ? module : GeoJS.define('routing')).exports = (function() {
     
     /* internals */
     

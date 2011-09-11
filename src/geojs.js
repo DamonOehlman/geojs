@@ -7,7 +7,7 @@
         reDots = /\./g;
     
     function define(id) {
-        definedModules[id] = {
+        return definedModules[id] = {
             exports: {}
         };
     } // define

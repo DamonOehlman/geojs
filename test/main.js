@@ -4,10 +4,13 @@ var vows = require('vows'),
     path = require('path'),
     suite = vows.describe('GeoJS Test Suite');
     
-// add the test batches
+// add the core tests
 suite.addBatch(require('./batches/pos'));
 suite.addBatch(require('./batches/distance'));
 suite.addBatch(require('./batches/line'));
+
+// add the plugin tests
+suite.addBatch(require('./batches/plugin'));
 suite.addBatch(require('./batches/geohash'));
 suite.addBatch(require('./batches/addressing'));
 

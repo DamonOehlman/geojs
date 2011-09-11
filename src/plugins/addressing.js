@@ -1,4 +1,4 @@
-(module || GeoJS.define('addressing')).exports = (function() {
+(typeof module != 'undefined' ? module : GeoJS.define('routing')).exports = (function() {
     
     /* Address prototype */
     
