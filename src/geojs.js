@@ -2,61 +2,37 @@
     
     /* internals */
     
-    var loadedPlugins = {},
+    var definedModules = {},
         reTrim = /^(.*)\s+$/,
         reDots = /\./g;
     
-    function define(id, definition) {
-        loadedPlugins[id] = definition;
+    function define(id) {
+        definedModules[id] = {
+            exports: {}
+        };
     } // define
-    
-    function findPlugins(input) {
-        var plugins = input.split(','),
-            requestedPlugins = [];
-
-        for (var ii = 0; ii < plugins.length; ii++) {
-            var pluginId = plugins[ii].replace(reTrim, '$1').replace(reDots, '/');
-            requestedPlugins[ii] = loadedPlugins[pluginId];
-        } // for
-        
-        return requestedPlugins;
-    } // findPlugins
 
     function plugin(input, callback) {
         var plugins = input.split(','),
-            allLoaded = true,
-            labLoader = typeof $LAB !== 'undefined' ? $LAB : null,
-            pluginName;
+            requested = [],
+            errorMessage = null;
             
         for (var ii = 0; ii < plugins.length; ii++) {
-            var pluginId = plugins[ii].replace(reTrim, '$1').replace(reDots, '/'),
-                plugin;
-
-            if (! loadedPlugins[pluginId]) {
-                if (IS_COMMONJS) {
-                    plugin = loadedPlugins[pluginId] = require('./plugins/' + pluginId);
-                }
-                else if (labLoader) {
-                    // unset the all loaded flag
-                    allLoaded = false;
-
-                    // TODO: add $LABjs loading here also
-                } // if..else
-            } // for
+            var pluginId = plugins[ii].replace(reTrim, '$1').replace(reDots, '/');
+                
+            if (IS_COMMONJS) {
+                requested.push(require('./plugins/' + pluginId));
+            }
+            else {
+                requested.push(definedModules[pluginId].exports);
+            } // if..else
         } // for
 
-        if (callback) {
-            if (IS_COMMONJS || allLoaded) {
-                callback.apply(GeoJS, findPlugins(input));
-            }
-            else if (labLoader) {
-                $LAB.wait(function() {
-                    callback.apply(GeoJS, findPlugins(input));
-                });
-            } // if..else
-        } // if
+        requested.unshift(errorMessage);
 
-        return GeoJS;
+        if (callback) {
+            callback.apply(null, requested);
+        } // if
     } // plugin
     
     //= core/constants

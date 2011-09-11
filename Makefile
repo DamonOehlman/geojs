@@ -4,6 +4,6 @@ build:
 	@node build.js
 
 test:
-	# node test/db.js
+	node test/main.js
 
 .PHONY: test

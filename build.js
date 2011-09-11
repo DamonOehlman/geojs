@@ -6,7 +6,7 @@ var interleave = require('interleave'),
     };
 
 // build each of the builds
-interleave('src/geojs', {
+interleave('src/', {
     multi: 'pass',
     path: 'lib',
     config: config

@@ -1,4 +1,4 @@
-(function() {
+module.exports = (function() {
     
     /* internals */
     
@@ -218,12 +218,12 @@
         callback('No routing service implemented');
     } // run
     
-    GeoJS.define('routing', {
+    return {
         calculate: calculate,
         parse: parse,
         parseTurnType: parseTurnType,
         run: run,
         
         RouteData: RouteData
-    });
+    };
 })();
