@@ -35,15 +35,15 @@ includes.forEach(function(include) {
     
     if (typeof batch == 'function') {
         testsLoading++;
-        batch(suite, loadedBatch);
+        batch(suite, function() {
+            setTimeout(loadedBatch, 0);
+        });
     }
     else {
         suite.addBatch(batch);
     } // if..else
 });
 
-/*
 if (testsLoading <= 0) {
     suite.run();
 } // if
-*/

@@ -77,6 +77,8 @@ module.exports = function(suite, callback) {
                 'have geometry': function(err, geometry, instructions) {
                     assert.ok(geometry);
                     assert.ok(geometry.length);
+                    
+                    console.log(geometry.length);
                 },
                 
                 'have instructions': function(err, geometry, instructions) {

@@ -3,7 +3,7 @@
     /* internals */
     
     var definedModules = {},
-        reTrim = /^\s*(.*)\s*$/,
+        reTrim = /^\s*(.*?)\s*$/,
         reDots = /\./g;
     
     function define(id) {
@@ -15,20 +15,28 @@
     function plugin(input, callback) {
         var plugins = input.split(','),
             requested = [],
-            errorMessage = null;
+            errors = [];
             
         for (var ii = 0; ii < plugins.length; ii++) {
             var pluginId = plugins[ii].replace(reTrim, '$1').replace(reDots, '/');
                 
             if (IS_COMMONJS) {
-                requested.push(require(require('path').resolve(__dirname, 'plugins/' + pluginId)));
+                try {
+                    var modPath = require('path').resolve(__dirname, 'plugins/' + pluginId),
+                        mod = require(modPath);
+                        
+                    requested.push(mod);
+                }
+                catch (e) {
+                    errors.push('Unable to load ' + pluginId);
+                }
             }
             else {
                 requested.push(definedModules[pluginId].exports);
             } // if..else
         } // for
 
-        requested.unshift(errorMessage);
+        requested.unshift(errors.join(','));
 
         if (callback) {
             callback.apply(null, requested);
