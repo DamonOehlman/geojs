@@ -44,6 +44,9 @@
     } // plugin
     
     //= core/constants
+    
+    //= core/activitylog
+    
     //= core/pos
     //= core/line
     //= core/bbox
@@ -54,6 +57,8 @@
     //= core/duration
     
     var GeoJS = this.GeoJS = {
+        ActivityLog: ActivityLog,
+        
         Pos: Pos,
         Line: Line,
         BBox: BBox,

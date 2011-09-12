@@ -15,6 +15,7 @@ var vows = require('vows'),
         './batches/plugin',
         './batches/geohash',
         './batches/addressing',
+        './batches/serializer',
         
         // engines
         './engines/decarta'

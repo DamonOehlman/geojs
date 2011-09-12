@@ -62,6 +62,11 @@ Pos.prototype = {
         return (brng * RADIANS_TO_DEGREES + 360) % 360;        
     },
     
+    // return the serializable clean version of the data
+    clean: function() {
+        return this.toString();
+    },
+    
     copy: function() {
         return new Pos(this.lat, this.lon);
     },

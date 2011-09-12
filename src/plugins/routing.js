@@ -233,12 +233,12 @@
     } // parseTurnType
     
     /**
-    ### run(waypoints, options, callback)
+    ### run(waypoints, callback, opts)
     */
     function run(waypoints, callback, opts) {
         // initialise options
         opts = opts || {};
-        opts.generalize = typeof opts.generalize == 'undefined' || opts.generalize;
+        opts.simplify = typeof opts.simplify == 'undefined' || opts.simplify;
         
         callback = callback || function() {};
         
@@ -247,30 +247,28 @@
         
         // if the engine is defined, then use it
         if (engine) {
+            var activityLog = new GeoJS.ActivityLog();
+            
             engine(waypoints, function(geometry, instructions) {
                 var tick = new Date().getTime(),
                     requiredPoints = [],
-                    ii, line, generalized;
+                    ii, line, generalized,
+                    simplified;
                     
-                if (opts.generalize) {
-                    for (ii = instructions.length; ii--; ) {
-                        requiredPoints[ii] = new GeoJS.Pos(instructions[ii].latlng);
-                    } // for
-
-                    // create a line for the geometry
-                    line = new GeoJS.Line(geometry);
+                // save the log entry
+                activityLog.entry('Received response from engine');
                     
-                    // generalize the line
-                    generalized = GeoJS.generalize(line.positions, requiredPoints);
-                        
-                    // update the geometry
-                    geometry = [];
-                    for (ii = generalized.length; ii--; ) {
-                        geometry[ii] = generalized[ii].toString();
-                    } // for
+                if (opts.simplify) {
+                    GeoJS.plugin('simplify', function(err, simplify) {
+                        simplified = simplify(geometry);
+                        activityLog.entry('Simplified to ' + simplified.length + ' points');
+                    });
                 } // if
                 
-                callback(geometry, instructions);
+                callback(geometry, instructions, {
+                    log: activityLog.entries,
+                    simplified: simplified
+                });
             }, opts);
         }
         // otherwise, fire the callback with an error condition
