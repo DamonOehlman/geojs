@@ -29,6 +29,6 @@ var decartaConfig = {
 
 function applyConfig(newConfig) {
     for (var key in newConfig) {
-        config[key] = newConfig[key];
+        decartaConfig[key] = newConfig[key];
     } // for
 } // applyConfig

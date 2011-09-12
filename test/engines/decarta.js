@@ -15,7 +15,9 @@ module.exports = {
         },
         
         'can set config': function(err, decarta) {
-            
+            decarta.applyConfig({
+                sessionID: new Date().getTime()
+            });
         },
         
         'test decarta geocoding': function(err, decarta, geocoder) {
