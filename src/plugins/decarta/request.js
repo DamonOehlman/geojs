@@ -28,6 +28,24 @@ Request.prototype.parseResponse = function(response) {
     return [response];
 }; // parseResponse
 
+// RUOK Request
+
+function RUOKRequest() {
+    Request.call(this, 'RUOK');
+} // RUOKRequest
+
+RUOKRequest.prototype = new Request();
+RUOKRequest.constructor = RUOKRequest;
+
+RUOKRequest.parseResponse = function(response) {
+    return [{
+        aliasCount: response.maxHostAliases,
+        host: response.hostName
+    }];
+};
+
+// request functions
+
 function generateRequest(request) {
     var requestXML = requestFormatter(
             request.maxResponses,

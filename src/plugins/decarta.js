@@ -8,13 +8,13 @@
     //= decarta/config
     
     //= decarta/core
+    //= decarta/tileserver
     //= decarta/request
     //= decarta/geocoder
     //= decarta/routing
 
     return {
         applyConfig: applyConfig,
-        
-        geocode: geocode
+        getTileConfig: getTileConfig
     };
 })();

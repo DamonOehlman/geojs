@@ -132,24 +132,26 @@ var ReverseGeocodeRequest = function(params) {
     return _self;
 };
 
-/* exports */
+GeoJS.plugin('geocoder', function(err, geocoder) {
+    geocoder.addEngine('decarta', function(target, callback, opts) {
+        opts = opts || {};
+        
+        if (opts.reverse) {
+            // create the geocoding request and execute it
+            var request = new ReverseGeocodeRequest({
+                position: target
+            });
 
-function geocode(target, callback, reverse) {
-    if (reverse) {
-        // create the geocoding request and execute it
-        var request = new ReverseGeocodeRequest({
-            position: target
-        });
-
-        makeServerRequest(request, function(matchingAddress) {
-            if (callback) {
-                callback(matchingAddress);
-            } // if
-        });
-    }
-    else {
-        makeServerRequest(new GeocodeRequest(target), function(geocodingResponse) {
-            callback(target, geocodingResponse);
-        });
-    } // if..else
-} // geocode
+            makeServerRequest(request, function(matchingAddress) {
+                if (callback) {
+                    callback(matchingAddress);
+                } // if
+            });
+        }
+        else {
+            makeServerRequest(new GeocodeRequest(target), function(geocodingResponse) {
+                callback(target, geocodingResponse);
+            });
+        } // if..else
+    });
+});

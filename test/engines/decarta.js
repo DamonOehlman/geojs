@@ -7,7 +7,7 @@ var assert = require('assert'),
 module.exports = {
     'Decarta Engine Tests': {
         topic: function() {
-            GeoJS.plugin('decarta,routing', this.callback);
+            GeoJS.plugin('decarta,geocoder,routing', this.callback);
         },
         
         'decarta module available': function(err, decarta) {
@@ -18,16 +18,16 @@ module.exports = {
             
         },
         
-        'test decarta geocoding': function(err, decarta) {
+        'test decarta geocoding': function(err, decarta, geocoder) {
             // iterate through the addresses, and geocode
             addresses.forEach(function(address) {
-                decarta.geocode(address.output, function(requestedAddress, matches) {
+                geocoder.run(address.output, function(requestedAddress, matches) {
                     console.log('matches for ', requestedAddress, matches);
                 });
             });
         },
         
-        'test decarta routing': function(err, decarta, routing) {
+        'test decarta routing': function(err, decarta, geocoder, routing) {
             routes.forEach(function(route) {
                 routing.run(route.waypoints, function() {
                     console.log(arguments);
