@@ -13,7 +13,7 @@ The core of GeoJS focuses just the core types required to get things working, an
 ```js
 GeoJS.plugin('addressing', function(err, addressing) {
 	// parse the address from finding nemo :)
-	addressing.parse('42 Wallaby Way, Sydney, Australia');
+	var parsedAddress = addressing.parse('42 Wallaby Way, Sydney, Australia');
 });
 ```
 
@@ -27,4 +27,8 @@ For the plugin to work effectively on the client, then you must include the plug
 ### Writing a Plugin
 
 To be completed
+
+## Internationaliztion
+
+At present, GeoJS does not support languages other than English.  The general structure of the library has been built to support plugging in other languages, and it is definitely something that I hope to look at in time.
 
