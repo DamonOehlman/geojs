@@ -18,7 +18,6 @@ module.exports = {
             
         },
         
-        /*
         'test decarta geocoding': function(err, decarta) {
             // iterate through the addresses, and geocode
             addresses.forEach(function(address) {
@@ -27,7 +26,6 @@ module.exports = {
                 });
             });
         },
-        */
         
         'test decarta routing': function(err, decarta, routing) {
             routes.forEach(function(route) {

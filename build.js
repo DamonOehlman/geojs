@@ -1,8 +1,7 @@
 var interleave = require('interleave'),
     config = {
         aliases: {
-            cog: '/development/projects/github/sidelab/cog/cogs/$1',
-            timelord: '/development/projects/github/DamonOehlman/timelord/timelord' // 'github://sidelab/cog/cogs/$1'
+            cog: '/development/projects/github/sidelab/cog/cogs/$1'
         }
     };
 

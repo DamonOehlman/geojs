@@ -1,0 +1,8 @@
+{
+    "input": "42 Wallaby Way, Sydney, Australia",
+    "output": {
+        "number": 42,
+        "street": "Wallaby Way",
+        "regions": ["Sydney", "Australia"]
+    }
+}
