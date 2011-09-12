@@ -24,9 +24,18 @@ For the plugin to work effectively on the client, then you must include the plug
 <script src="https://raw.github.com/DamonOehlman/geojs/master/lib/plugins/addressing.js"></script>
 ```
 
+## Plugin Directory
+
+A plugin directory is available in the [wiki](https://github.com/DamonOehlman/geojs/wiki/Plugin-Directory)
+
 ### Writing a Plugin
 
 To be completed
+
+## Tests
+
+A [Vows](http://vowsjs.org/) test suite is included in the repository.  Simply run `
+node test/main` to execute the suite. (__NOTE:__ Not all tests pass at the moment, and more tests need to be written).
 
 ## Internationaliztion
 
