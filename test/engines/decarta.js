@@ -55,7 +55,7 @@ module.exports = function(suite, callback) {
                 
                 'address ok': function(err, requestedAddress, matches) {
                     assert.ok(matches);
-                    assert.ok(matches.length);
+                    assert.ok(matches.length, 'No matches found');
                 }
             };
         });
@@ -78,7 +78,9 @@ module.exports = function(suite, callback) {
                     assert.ok(geometry);
                     assert.ok(geometry.length);
                     
-                    console.log(geometry.length);
+                    if (route.minPoints) {
+                        assert.ok(geometry.length > route.minPoints, 'Insufficient points returned for route');
+                    } // if
                 },
                 
                 'have instructions': function(err, geometry, instructions) {

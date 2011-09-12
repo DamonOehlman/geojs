@@ -40,6 +40,8 @@ module.exports = function(suite, callback) {
             },
             
             'plugins available': function(err, geohash, addressing, routing) {
+                assert.isNull(err);
+                
                 assert.ok(geohash);
                 assert.ok(addressing);
                 assert.ok(routing);
