@@ -1,5 +1,4 @@
-
-(function(scope) {
+(typeof module != 'undefined' ? module : GeoJS.define('routing')).exports = (function() {
     
     // define constants
     var DEFAULT_SRS = 'EPSG:4326',
@@ -197,8 +196,8 @@
         return '<ogc:Filter>' + filter + '</ogc:Filter>';
     } // toOGC
     
-    scope.Filters = {
+    return {
         parse: parse,
         toOGC: toOGC
     };
-})(typeof module != 'undefined' && module.exports ? module.exports : GeoJS);
+})();
