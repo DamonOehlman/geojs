@@ -252,22 +252,20 @@
             engine(waypoints, function(geometry, instructions) {
                 var tick = new Date().getTime(),
                     requiredPoints = [],
-                    ii, line, generalized,
-                    simplified;
+                    ii, line, generalized;
                     
                 // save the log entry
                 activityLog.entry('Received response from engine');
                     
                 if (opts.simplify) {
                     GeoJS.plugin('simplify', function(err, simplify) {
-                        simplified = simplify(geometry);
-                        activityLog.entry('Simplified to ' + simplified.length + ' points');
+                        geometry = simplify(geometry);
+                        activityLog.entry('Simplified to ' + geometry.length + ' points');
                     });
                 } // if
                 
                 callback(geometry, instructions, {
-                    log: activityLog.entries,
-                    simplified: simplified
+                    log: activityLog.entries
                 });
             }, opts);
         }
