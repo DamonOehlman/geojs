@@ -104,8 +104,6 @@ var RouteRequest = function(waypoints, params) {
 /* exports */
 
 GeoJS.plugin('routing', function(err, routing) {
-    console.log(routing);
-    
     routing.addEngine('decarta', function(waypoints, callback, opts) {
         opts = opts || decartaConfig.routing;
 

@@ -73,7 +73,7 @@ var GeocodeRequest = function(address, params) {
             regions = address.regions && address.regions.join ? address.regions.join(' ') : (address.regions || '');
         
         // iterate through the regions in the parsed street, and add to the address xml
-        for (var ii = 0; ii < address.regions.length; ii++) {
+        for (var ii = 0; address.regions && ii < address.regions.length; ii++) {
             if (ii < placeTypes.length) {
                 addressXML += '<xls:Place type="' + placeTypes[ii] + '">' + address.regions[ii] + '</xls:Place>';
             } // if

@@ -2,20 +2,48 @@ var vows = require('vows'),
     assert = require('assert'),
     fs = require('fs'),
     path = require('path'),
-    suite = vows.describe('GeoJS Test Suite');
+    suite = vows.describe('GeoJS Test Suite'),
     
-// add the core tests
-suite.addBatch(require('./batches/pos'));
-suite.addBatch(require('./batches/distance'));
-suite.addBatch(require('./batches/line'));
+    // define the includes
+    includes = [
+        // core types
+        './batches/pos',
+        './batches/distance',
+        './batches/line',
+      
+        // plugins
+        './batches/plugin',
+        './batches/geohash',
+        './batches/addressing',
+        
+        // engines
+        './engines/decarta'
+    ],
+    testsLoading = 0;
+    
+function loadedBatch() {
+    testsLoading--;
+    
+    if (testsLoading <= 0) {
+        suite.run();
+    } // if
+}; // 
+    
+// iterate through the includes and add
+includes.forEach(function(include) {
+    var batch = require(include);
+    
+    if (typeof batch == 'function') {
+        testsLoading++;
+        batch(suite, loadedBatch);
+    }
+    else {
+        suite.addBatch(batch);
+    } // if..else
+});
 
-// add the plugin tests
-suite.addBatch(require('./batches/plugin'));
-suite.addBatch(require('./batches/geohash'));
-suite.addBatch(require('./batches/addressing'));
-
-// test the decarta engine
-suite.addBatch(require('./engines/decarta'));
-
-// run the suite
-suite.run();
+/*
+if (testsLoading <= 0) {
+    suite.run();
+} // if
+*/

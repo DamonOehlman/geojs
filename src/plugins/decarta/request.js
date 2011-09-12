@@ -67,14 +67,13 @@ function generateRequest(request) {
 function makeServerRequest(request, callback, errorCallback) {
     var targetUrl = request.getUrl(generateRequest(request));
 
-    _log("making request: " + generateRequest(request));
+    // _log("making request: " + generateRequest(request));
     //_log(targetUrl);
     
     // make the request to the server
     _jsonp(targetUrl, function(data) {
         // get the number of responses received
         var response = data.response.XLS.Response;
-        console.log(response);
 
         // if we have one or more responeses, then handle them
         if ((response.numberOfResponses > 0) && response[request.methodName + 'Response']) {

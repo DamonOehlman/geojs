@@ -3,7 +3,6 @@
     //= cog!log
     //= cog!jsonp
     //= cog!stringtools
-    //= timelord!
     
     //= decarta/config
     

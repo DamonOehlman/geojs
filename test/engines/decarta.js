@@ -1,40 +1,95 @@
 var assert = require('assert'),
     GeoJS = require('../../lib/GeoJS'),
-    loader = require('../tools/loader'),
-    addresses = loader.getAddresses(),
-    routes = loader.getRoutes();
+    loader = require('../tools/loader');
     
-module.exports = {
-    'Decarta Engine Tests': {
-        topic: function() {
-            GeoJS.plugin('decarta,geocoder,routing', this.callback);
-        },
+module.exports = function(suite, callback) {
+    GeoJS.plugin('decarta,geocoder,routing', function(err, decarta, geocoder, routing) {
+        var geocodingTests = {},
+            routingTests = {};
         
-        'decarta module available': function(err, decarta) {
-            assert.ok(decarta);
-        },
+        suite.addBatch({
+            'Decarta Engine Tests': {
+                'module available': function() {
+                    assert.ok(decarta);
+                },
+                
+                'can set config': function() {
+                    decarta.applyConfig({
+                        sessionID: new Date().getTime()
+                    });
+                },
+
+                'can get tileconfig': {
+                    topic: function() {
+                        this.suite.addBatch({
+                            'Another Batch': {
+                                '1 + 1': function() {
+                                    assert.ok(0);
+                                }
+                            }
+                        });
+
+                        var callback = this.callback;
+
+                        decarta.getTileConfig('', function(config) {
+                            callback(null, config);
+                        });
+                    },
+
+                    'have hosts': function(err, config) {
+                        assert.ok(config.hosts);
+                    }
+                }                
+            }
+        });
         
-        'can set config': function(err, decarta) {
-            decarta.applyConfig({
-                sessionID: new Date().getTime()
-            });
-        },
+        loader.getAddresses().forEach(function(address) {
+            geocodingTests[address.input] = {
+                topic: function() {
+                    var callback = this.callback;
+                    
+                    geocoder.run(address.output, function(requestedAddress, matches) {
+                        callback(null, requestedAddress, matches);
+                    });
+                },
+                
+                'address ok': function(err, requestedAddress, matches) {
+                    assert.ok(matches);
+                    assert.ok(matches.length);
+                }
+            };
+        });
         
-        'test decarta geocoding': function(err, decarta, geocoder) {
-            // iterate through the addresses, and geocode
-            addresses.forEach(function(address) {
-                geocoder.run(address.output, function(requestedAddress, matches) {
-                    console.log('matches for ', requestedAddress, matches);
-                });
-            });
-        },
+        suite.addBatch({
+            'Decarta Geocoding': geocodingTests
+        });
+
+        loader.getRoutes().forEach(function(route) {
+            routingTests[route.name || 'Test Route'] = {
+                topic: function() {
+                    var callback = this.callback;
+                    
+                    routing.run(route.waypoints, function(geometry, instructions) {
+                        callback(null, geometry, instructions);
+                    });
+                },
+                
+                'have geometry': function(err, geometry, instructions) {
+                    assert.ok(geometry);
+                    assert.ok(geometry.length);
+                },
+                
+                'have instructions': function(err, geometry, instructions) {
+                    assert.ok(instructions);
+                    assert.ok(instructions.length);
+                }
+            };
+        });
         
-        'test decarta routing': function(err, decarta, geocoder, routing) {
-            routes.forEach(function(route) {
-                routing.run(route.waypoints, function() {
-                    console.log(arguments);
-                });
-            });
-        }
-    }
+        suite.addBatch({
+            'Decarta Routing': routingTests
+        });
+        
+        callback();
+    });
 };
