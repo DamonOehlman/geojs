@@ -1,22 +1,30 @@
 # GeoJS
 
-A library of javascript types and utilities useful for Geospatial applications and libraries.  Written with the intention of being both useful in the browser and on the server.
+The GeoJS library is a collection of Geospatial types and utility functions designed to make the process of writing a spatial JavaScript app achievable on both the client and the server (via [NodeJS](http://nodejs.org/)).  The project was started as a result of extracting the core types and bridging functions out of [Tile5](https://github.com/DamonOehlman/tile5).
+
+## The Core Types
+
+To be completed
 
 ## Plugin Architecture
 
-The library is designed to be lightweight and only implements minimal functionality at a core level.  To provide additional power, plugins are provided and can be included quite simply.
-
-In the land of browsers, either include as a script or as part of your application build file (if you use something like [Sprockets](http://getsprockets.com/)):
-
-```html
-<script src="js/geojs/plugins/plugin.js"></script>
-```
-
-And if you are working with [NodeJS](http://nodejs.org/) or other [CommonJS](http://commonjs.org/) implementations then you can use the `GeoJS.include` function to mixin additional functionality:
+The core of GeoJS focuses just the core types required to get things working, and then provides a number of plugins designed to add different pieces of functionality.  The plugins are designed to work on both the client and the server, and can be activated using the following command:
 
 ```js
-var GeoJS = require('geojs');
-
-GeoJS.include('compressor,routing');
+GeoJS.plugin('addressing', function(err, addressing) {
+	// parse the address from finding nemo :)
+	addressing.parse('42 Wallaby Way, Sydney, Australia');
+});
 ```
+
+For the plugin to work effectively on the client, then you must include the plugin JS file after you have included the main `geojs.js` file.  _In time we may use something like [$LABjs](http://labjs.com/) to dynamically load the module_
+
+```html
+<script src="https://raw.github.com/DamonOehlman/geojs/master/lib/geojs.js"></script>
+<script src="https://raw.github.com/DamonOehlman/geojs/master/lib/plugins/addressing.js"></script>
+```
+
+### Writing a Plugin
+
+To be completed
 
