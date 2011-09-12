@@ -2,12 +2,10 @@ var assert = require('assert'),
     fs = require('fs'),
     path = require('path'),
     GeoJS = require('../../lib/GeoJS'),
-    parseTests = {},
-    testAddressPath = path.resolve(__dirname, 'addresses');
+    parseTests = {};
     
-function checkAddress(data, Addressing) {
-    var testData = JSON.parse(data),
-        parsedAddress = Addressing.parse(testData.input);
+function checkAddress(testData, Addressing) {
+    var parsedAddress = Addressing.parse(testData.input);
         
     assert.ok(parsedAddress);
     
@@ -35,16 +33,7 @@ module.exports = {
             var callback = this.callback;
             
             GeoJS.plugin('addressing', function(err, Addressing) {
-                var testAddresses = [];
-                
-                // load the parse tests
-                fs.readdir(testAddressPath, function(err, files) {
-                    (files ||[]).forEach(function(file) {
-                        testAddresses.push(fs.readFileSync(path.join(testAddressPath, file), 'utf8'));
-                    });
-                    
-                    callback(err, Addressing, testAddresses);
-                });
+                callback(err, Addressing, require('../tools/loader').getAddresses());
             });
         },
         

@@ -14,6 +14,10 @@
         "web": "https://github.com/sidelab/geojs/issues"
     },
     
+    "dependencies": {
+        "request": "2.1.x"
+    },
+    
     "devDependencies": {
         "vows": "0.5.x"
     },

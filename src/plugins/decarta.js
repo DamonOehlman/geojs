@@ -1,11 +1,20 @@
-// ensure that we have addressing
-GeoJS.include('addressing,routing', function(addressing, routing) {
+(typeof module != 'undefined' ? module : GeoJS.define('routing')).exports = (function() {
+
+    //= cog!log
     //= cog!jsonp
+    //= cog!stringtools
+    //= timelord!
     
+    //= decarta/config
+    
+    //= decarta/core
+    //= decarta/request
+    //= decarta/geocoder
     //= decarta/routing
-    
-    // assign the decarta routing method
-    routing.run = function(waypoints, options, callback) {
-        callback('Decarta routing engine needs to be implemented');
-    }; 
-});
+
+    return {
+        applyConfig: applyConfig,
+        
+        geocode: geocode
+    };
+})();

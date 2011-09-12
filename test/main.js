@@ -14,5 +14,8 @@ suite.addBatch(require('./batches/plugin'));
 suite.addBatch(require('./batches/geohash'));
 suite.addBatch(require('./batches/addressing'));
 
+// test the decarta engine
+suite.addBatch(require('./engines/decarta'));
+
 // run the suite
 suite.run();
