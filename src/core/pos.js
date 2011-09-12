@@ -85,7 +85,7 @@ Pos.prototype = {
     },
     
     equalTo: function(testPos) {
-        return pos && (this.lat === testPos.lat) && (this.lon === testPos.lon);
+        return testPos && (this.lat === testPos.lat) && (this.lon === testPos.lon);
     },
     
     empty: function() {
@@ -98,7 +98,7 @@ Pos.prototype = {
     inArray: function(testArray) {
         if (testArray) {
             for (var ii = testArray.length; ii--; ) {
-                if (this.equal(testArray[ii])) {
+                if (this.equalTo(testArray[ii])) {
                     return true;
                 } // if
             } // for

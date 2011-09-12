@@ -1,8 +1,8 @@
 {
-    "input": "42 Wallaby Way, Sydney, Australia",
+    "input": "1 Queen Street, Brisbane",
     "output": {
-        "number": 42,
-        "street": "Wallaby Way",
-        "regions": ["Sydney", "Australia"]
+        "number": 1,
+        "street": "Queen Street",
+        "regions": ["Brisbane"]
     }
 }

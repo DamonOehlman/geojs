@@ -79,7 +79,7 @@ module.exports = function(suite, callback) {
                     assert.ok(geometry.length);
                     
                     if (route.minPoints) {
-                        assert.ok(geometry.length > route.minPoints, 'Insufficient points returned for route');
+                        assert.ok(geometry.length > route.minPoints, 'Insufficient points returned for route (' + geometry.length + ' < ' + route.minPoints + ')');
                     } // if
                 },
                 
