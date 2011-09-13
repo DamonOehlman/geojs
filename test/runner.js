@@ -18,7 +18,7 @@ function loadedBatch() {
 exports.runTests = function(includes) {
     // iterate through the includes and add
     includes.forEach(function(include) {
-        var batch = require(include);
+        var batch = require(path.resolve(__dirname, include));
 
         if (typeof batch == 'function') {
             testsLoading++;
