@@ -7,7 +7,12 @@ var assert = require('assert'),
 function checkAddress(testData, Addressing) {
     var parsedAddress = Addressing.parse(testData.input);
         
+    if (! testData.output) {
+        console.log('parsed ' + testData.input + ': ', parsedAddress);
+    } // if
+        
     assert.ok(parsedAddress);
+    assert.ok(testData.output, "No output address supplied");
     
     for (var key in testData.output) {
         var testValue = parsedAddress[key],

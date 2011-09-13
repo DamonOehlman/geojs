@@ -5,7 +5,7 @@ var RouteRequest = function(waypoints, params) {
     params.distanceUnit = params.distanceUnit || 'KM';
     params.routeQueryType = params.routeQueryType || 'RMAN';
     params.preference = params.preference || 'Fastest';
-    params.rulesFile = params.rulesFile || 'maneuver-rules';
+    params.rulesFile = params.rulesFile || decartaConfig.routing.rulesFile || 'maneuver-rules';
     params.routeInstructions = typeof params.routeInstructions == 'undefined' || params.routeInstructions;
     params.routeGeometry = typeof params.routeGeometry == 'undefined' || params.routeGeometry;
     
