@@ -7,11 +7,11 @@
     
     "repository": {
         "type": "git",
-        "url": "http://github.com/sidelab/geojs.git"
+        "url": "http://github.com/DamonOehlman/geojs.git"
     },
     
     "bugs": {
-        "web": "https://github.com/sidelab/geojs/issues"
+        "web": "https://github.com/DamonOehlman/geojs/issues"
     },
     
     "dependencies": {
@@ -25,6 +25,6 @@
     
     "licenses": [{
         "type": "MIT",
-        "url": "http://github.com/sidelab/geojs/raw/LICENCE"
+        "url": "http://github.com/DamonOehlman/geojs/raw/LICENCE"
     }]
 }
