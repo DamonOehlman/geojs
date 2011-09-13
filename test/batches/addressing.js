@@ -1,7 +1,7 @@
 var assert = require('assert'),
     fs = require('fs'),
     path = require('path'),
-    GeoJS = require('../../lib/GeoJS'),
+    GeoJS = require('../../lib/geojs'),
     parseTests = {};
     
 function checkAddress(testData, Addressing) {

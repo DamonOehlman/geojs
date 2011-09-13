@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    GeoJS = require('../../lib/GeoJS'),
+    GeoJS = require('../../lib/geojs'),
     testItems = [{
         pos:  '-27.467379 153.192271',
         hash: 'r7hgtzxnytkq'

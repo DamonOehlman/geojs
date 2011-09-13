@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    GeoJS = require('../../lib/GeoJS');
+    GeoJS = require('../../lib/geojs');
     
 module.exports = function(suite, callback) {
     suite.addBatch({
