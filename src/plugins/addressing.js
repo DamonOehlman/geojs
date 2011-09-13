@@ -64,7 +64,7 @@
                     }
                 ],
                 streetRegexes = [
-                    (/^ST?(REET)?/),
+                    (/^ST(REET)?/),
                     (/^R(OA)?D?/),
                     (/^C(OUR)?T?/),
                     (/^AV?(ENUE)?/),
@@ -126,8 +126,9 @@
         // part (eg. 123, 42A, etc).
         function locateBestStreetPart(startIndex) {
             var bestIndex = startIndex;
-            
-            for (var ii = startIndex-1; ii--; ) {
+
+            // if the start index is less than or equal to 0, then return
+            for (var ii = startIndex-1; ii >= 0; ii--) {
                 // iterate over the street regexes and test them against the various parts
                 for (var rgxIdx = 0; rgxIdx < streetRegexes.length; rgxIdx++) {
                     // if we have a match, then process
