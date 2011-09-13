@@ -3,7 +3,6 @@
     /* internals */
     
     var customTurnTypeRules = undefined,
-        generalize = GeoJS.generalize,
         engines = {},
     
         // predefined regexes
@@ -64,6 +63,11 @@
             rules.push({
                 regex: /arrive/i,
                 turn: 'arrive'
+            });
+            
+            rules.push({
+                regex: /fork/i,
+                turn: 'fork'
             });
 
             // "FELL THROUGH" - WTF!
@@ -156,12 +160,6 @@
         var service = T5.Registry.create('service', 'routing');
         if (service) {
             service.calculate(waypoints, function(geometry, instructions) {
-                /*
-                if (args.generalize) {
-                    routeData.geometry = generalize(routeData.geometry, routeData.getInstructionPositions());
-                } // if
-                */
-                
                 // if we have a success handler, then call it
                 if (success) {
                     success(geometry, instructions);
@@ -252,7 +250,7 @@
             engine(waypoints, function(geometry, instructions) {
                 var tick = new Date().getTime(),
                     requiredPoints = [],
-                    ii, line, generalized;
+                    ii, line;
                     
                 // save the log entry
                 activityLog.entry('Received response from engine');
