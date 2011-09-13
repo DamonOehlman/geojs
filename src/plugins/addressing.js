@@ -3,7 +3,7 @@
     /* Address prototype */
     
     function Address() {
-        this.building = '';
+        this.unit = '';
         this.number = '';
         this.street = '';
         this.regions = [];
@@ -44,31 +44,38 @@
 
             /* internals */
 
-            var regexSeparator = /\,|\s|\//,
+            var regexSeparator = /\s/,
                 countryRegexes = {
                     AU: /^AUSTRAL/,
                     US: /(^UNITED\sSTATES|^U\.?S\.?A?$)/
                 },
                 streetRegexes = [
-                    (/^ST(REET)?$/),
-                    (/^R(OA)?D$/),
-                    (/^C(OUR)?T$/),
-                    (/^AV(ENUE)?$/),
-                    (/^PL(ACE)?$/),
-                    (/^L(AN)?E$/),
-                    (/^W(A)?Y$/)
+                    (/^ST(REET)?/),
+                    (/^R(OA)?D/),
+                    (/^C(OUR)?T/),
+                    (/^AV(ENUE)?/),
+                    (/^PL(ACE)?/),
+                    (/^L(AN)?E/),
+                    (/^W(A)?Y/)
+                ],
+                unitRegexes = [
+                    (/^(?:\#|APT|APARTMENT)\s?(\d+)/),
+                    (/^(\d+)\/(.*)/)
                 ];
 
             /* exports */
 
             return function(address) {
                 var rawParts = removeEmptyParts(address.toUpperCase().split(regexSeparator)),
+                    // extract the unit / apartment number
+                    unit = extractUnit(rawParts, unitRegexes),
                     // detect the country using the country regexes
                     country = extractCountry(rawParts, countryRegexes),
                     streetData = extractStreetData(rawParts, streetRegexes);
                     
                 return new Address({ 
-                    regions: rawParts
+                    unit: unit,
+                    regions: rawParts.join(' ').split(/\,\s?/)
                 }, country, streetData);
             }; // EN parser
         })()
@@ -138,9 +145,8 @@
             } // while
 
             return {
-                building: index >= 0 ? parts.splice(0, index + 1).join(' ') : '',
                 number: numberParts ? numberParts.join('/') : '',
-                street: streetParts.join(' ')
+                street: streetParts.join(' ').replace(/\,/g, '')
             };
         } // startIndex
 
@@ -155,11 +161,38 @@
         } // for
 
         return {
-            building: '',
             number: '',
             street: ''
         };
     } // extractStreetData
+    
+    function extractUnit(parts, regexes) {
+        var match, rgxIdx, ii;
+        
+        // iterate over the unit regexes and test them against the various parts
+        for (rgxIdx = 0; rgxIdx < regexes.length; rgxIdx++) {
+            for (ii = parts.length; ii--; ) {
+                match = regexes[rgxIdx].exec(parts[ii]);
+                
+                // if we have a match, then process
+                if (match) {
+                    // if we have a 2nd capture group, then replace the item with 
+                    // the text of that group
+                    if (match[2]) {
+                        parts.splice(ii, 1, match[2]);
+                    }
+                    // otherwise, just remove the element
+                    else {
+                        parts.splice(ii, 1);
+                    } // if..else
+
+                    return match[1];
+                } // if
+            } // for
+        } // for        
+        
+        return undefined;
+    } // extractUnit
 
     function removeEmptyParts(input) {
         var output = [];

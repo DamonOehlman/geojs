@@ -10,20 +10,25 @@ function checkAddress(testData, Addressing) {
     assert.ok(parsedAddress);
     
     for (var key in testData.output) {
-        var testValue = parsedAddress[key];
+        var testValue = parsedAddress[key],
+            requiredValue = testData.output[key];
+
+        assert.ok(testValue, testData.input + ' has no ' + key + ' part');
         
-        // if the test value is an array, then convert to a string, by joining segments
-        if (testValue && testValue.join) {
-            testValue = testValue.join(' ');
-        } // if
-        
-        // assert.ok(testValue);
-        assert.equal(
-            testData.output[key], 
-            testValue, 
-            testData.input + ': "' + key + '" match error: "' + 
-                testValue + '" !== "' + testData.output[key] + '"'
-        );
+        if (testValue.join) {
+            assert.length(testValue, requiredValue.length);
+            
+            testValue.forEach(function(part, index) {
+                assert.equal(part, requiredValue[index]);
+            });
+        }
+        else {
+            assert.equal(
+                requiredValue, 
+                testValue, 
+                testData.input + ': "' + key + '" match error: "' + testValue + '" !== "' + requiredValue + '"'
+            );
+        } // if.else
     } // for
 } // createParseTest
 
