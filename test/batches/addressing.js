@@ -23,6 +23,8 @@ function checkAddress(testData, Addressing) {
         if (testValue.join) {
             assert.length(testValue, requiredValue.length);
             
+            console.log(parsedAddress);
+            
             testValue.forEach(function(part, index) {
                 assert.equal(part, requiredValue[index]);
             });

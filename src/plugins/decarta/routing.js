@@ -112,7 +112,7 @@ GeoJS.plugin('routing', function(err, routing) {
 
         // create the geocoding request and execute it
         makeServerRequest(routeRequest, callback, function(err) {
-            console.log('got error: ', arguments);
+            _log('received error: ' + err, 'error');
             callback(err);
         });
     });

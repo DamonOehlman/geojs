@@ -134,7 +134,6 @@
                 (entities[match[0]] || '') + 
                 text.slice(match.index + 1);
                 
-            console.log('text: ' + text);
             match = reEntities.exec(text);
         } // while
         
