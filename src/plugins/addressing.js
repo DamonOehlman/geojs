@@ -1,7 +1,8 @@
 (typeof module != 'undefined' ? module : GeoJS.define('routing')).exports = (function() {
     
     // a numericesque string - either completely numeric, or a number followed by a single character (e.g. 42A)
-    var reNumericesque = /^(\d*|\d*\w)$/;
+    var reNumericesque = /^(\d*|\d*\w)$/,
+        reStreetCleaner = /^\^?(.*)\,?\$?$/;
     
     /* Address prototype */
     
@@ -64,14 +65,14 @@
                     }
                 ],
                 streetRegexes = [
-                    (/^ST(REET)?/),
-                    (/^R(OA)?D?/),
-                    (/^C(OUR)?T?/),
-                    (/^AV?(ENUE)?/),
-                    (/^PL(ACE)?/),
-                    (/^L(AN)?E?/),
-                    (/^DR?(IVE)?/),
-                    (/^W(A)?Y?/)
+                    'ST(REET)?',
+                    '(RD|ROAD)',
+                    '(CT|COURT)',
+                    'AV(ENUE)?',
+                    'PL(ACE)?',
+                    '(LN|LANE)',
+                    'DR(IVE)?',
+                    '(WY|WAY)'
                 ],
                 unitRegexes = [
                     (/^(?:\#|APT|APARTMENT)\s?(\d+)/),
@@ -86,7 +87,7 @@
                     unit = extractUnit(rawParts, unitRegexes),
                     // detect the country using the country regexes
                     country = extractCountry(rawParts, countryRegexes),
-                    streetData = extractStreetData(rawParts, streetRegexes);
+                    streetData = extractStreetData(rawParts, compileRegexes(streetRegexes));
                     
                 return new Address({ 
                     unit: unit,
@@ -97,6 +98,16 @@
     };
     
     /* internals */
+    
+    function compileRegexes(regexStrings) {
+        var regexes = [];
+        
+        for (var ii = regexStrings.length; ii--; ) {
+            regexes[ii] = new RegExp(regexStrings[ii].replace(reStreetCleaner, '^$1\,?$'));
+        } // for
+        
+        return regexes;
+    } // compileRegexes
     
     function extractCountry(parts, countryRegexes) {
         // iterate through the parts and check against country regexes
@@ -183,13 +194,13 @@
                     };
                 } // if..else
             } // while
-
+            
             return {
                 number: numberParts ? numberParts.join('/') : '',
                 street: streetParts.join(' ').replace(/\,/g, '')
             };
         } // startIndex
-
+        
         // iterate over the street regexes and test them against the various parts
         for (var ii = parts.length; ii--; ) {
             for (var rgxIdx = 0; rgxIdx < streetRegexes.length; rgxIdx++) {
