@@ -1,9 +1,4 @@
-/**
-# GeoJS.Distance
-
-## Methods
-*/
-function Distance(value) {
+var Distance = GeoJS.Distance = function(value) {
     if (typeof value == 'string') {
         var uom = (value.replace(/\d|\.|\s/g, '') || 'm').toLowerCase(),
             multipliers = {
@@ -14,7 +9,7 @@ function Distance(value) {
     } // if
     
     this.meters = value || 0;
-} // Distance
+};
 
 Distance.prototype = {
     /**

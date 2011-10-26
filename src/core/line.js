@@ -26,7 +26,7 @@ case it is best to pass that distance data in the `distData` argument.  If not, 
 be recalculated.
 
 */
-function Line(positions) {
+var Line = GeoJS.Line = function(positions) {
     this.positions = [];
     
     // iterate through the positions and if we have text, then convert to a position
@@ -41,7 +41,7 @@ function Line(positions) {
             this.positions[ii] = positions[ii];
         } // if..else
     } // for
-} // Line
+};
 
 Line.prototype = {
     constructor: Line,

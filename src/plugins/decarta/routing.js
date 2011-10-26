@@ -29,7 +29,7 @@ var RouteRequest = function(waypoints, params) {
                 text: instructions[ii].Instruction,
                 latlng: instructions[ii].Point,
                 distance: distance.value + (distance.uom || 'M').toUpperCase(),
-                time: GeoJS.parseDuration(instructions[ii].duration, '8601')
+                time: Timelord(instructions[ii].duration, '8601')
             });
         } // for
         

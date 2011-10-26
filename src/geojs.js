@@ -1,10 +1,11 @@
-(function() {
+(function(glob) {
     
     /* internals */
     
     var definedModules = {},
         reTrim = /^\s*(.*?)\s*$/,
-        reDots = /\./g;
+        reDots = /\./g,
+        GeoJS = {};
     
     function define(id) {
         return definedModules[id] = {
@@ -52,29 +53,5 @@
     //= core/bbox
     //= core/distance
     
-    //= core/functions
-    
-    //= core/duration
-    
-    var GeoJS = this.GeoJS = {
-        ActivityLog: ActivityLog,
-        
-        Pos: Pos,
-        Line: Line,
-        BBox: BBox,
-        Distance: Distance,
-        
-        generalize: generalize,
-        
-        // time types and helpers
-        Duration: Duration,
-        parseDuration: parseDuration,
-        
-        define: define,
-        plugin: plugin
-    };
-    
-    if (IS_COMMONJS) {
-        module.exports = GeoJS;
-    } // if
-})();
+    (typeof module != "undefined" && module.exports) ? (module.exports = GeoJS) : (glob.GeoJS = GeoJS);
+})(this);

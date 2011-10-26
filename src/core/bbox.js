@@ -1,7 +1,4 @@
-/**
-# GeoJS.BBox
-*/
-function BBox(p1, p2) {
+var BBox = GeoJS.BBox = function(p1, p2) {
     // if p1 is an array, then calculate the bounding box for the positions supplied
     if (p1 && p1.splice) {
         var padding = p2,
@@ -55,7 +52,7 @@ function BBox(p1, p2) {
         this.min = p1;
         this.max = p2;
     } // if..else
-} // BoundingBox
+};
 
 BBox.prototype = {
     constructor: BBox,

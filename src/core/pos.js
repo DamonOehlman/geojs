@@ -23,7 +23,7 @@ Return true if the position is empty
 Calculate the position that sits between the destination Pos for the given distance.
 
 */
-function Pos(p1, p2, radius) {
+var Pos = GeoJS.Pos = function(p1, p2, radius) {
     // if the first parameter is a string, then parse the value
     if (p1 && p1.split) {
         var coords = p1.split(reDelimitedSplit);
@@ -44,7 +44,7 @@ function Pos(p1, p2, radius) {
     this.lat = parseFloat(p1 || 0);
     this.lon = parseFloat(p2 || 0);
     this.radius = radius || KM_PER_RAD;
-} // Pos constructor
+};
 
 Pos.prototype = {
     constructor: Pos,

@@ -1,4 +1,4 @@
-function ActivityLog() {
+var ActivityLog = GeoJS.ActivityLog = function() {
     this.entries = [];
     
     this._startTick = new Date().getTime();
