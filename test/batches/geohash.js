@@ -25,8 +25,8 @@ module.exports = {
                 var pos = new GeoJS.Pos(testItems[ii].pos),
                     testPos = Geohash.decode(testItems[ii].hash);
                     
-                assert.equal(pos.lat * 1000 | 0, testPos.lat * 1000 | 0);
-                assert.equal(pos.lon * 1000 | 0, testPos.lon * 1000 | 0);
+                assert.equal(testPos.lat * 1000 | 0, pos.lat * 1000 | 0);
+                assert.equal(testPos.lon * 1000 | 0, pos.lon * 1000 | 0);
             }
         }
     }

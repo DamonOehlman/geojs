@@ -1,4 +1,5 @@
-var assert = require('assert');
+var assert = require('assert'),
+    GeoJS = require('../../lib/geojs');
 
 exports.equal = function(target, comparison, decimals) {
     var comparisonPos = new GeoJS.Pos(comparison),
