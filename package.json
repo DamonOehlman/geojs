@@ -3,7 +3,7 @@
     "description": "Simple Geospatial Types and Tools for Javascript",
     "main": "./index",
     "author": "Damon Oehlman",
-    "version": "0.1.7",
+    "version": "0.1.8",
     
     "repository": {
         "type": "git",
@@ -11,11 +11,11 @@
     },
     
     "bugs": {
-        "web": "https://github.com/DamonOehlman/geojs/issues"
+        "url": "https://github.com/DamonOehlman/geojs/issues"
     },
     
     "dependencies": {
-        "request": "2.1.x"
+        "request": "2.2.x"
     },
     
     "devDependencies": {
