@@ -21,7 +21,7 @@ function checkAddress(testData, Addressing) {
         assert.ok(testValue, testData.input + ' has no ' + key + ' part');
         
         if (testValue.join) {
-            assert.length(testValue, requiredValue.length);
+            assert.equal(testValue.length, requiredValue.length);
             
             testValue.forEach(function(part, index) {
                 assert.equal(part, requiredValue[index]);

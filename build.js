@@ -8,13 +8,11 @@ var interleave = require('interleave'),
 
 // build each of the builds
 interleave('src/', {
-    multi: 'pass',
     path: 'lib',
     config: config
 });
 
 interleave('src/plugins/', {
-    multi: 'pass',
     path: 'lib/plugins/',
     config: config
 });
