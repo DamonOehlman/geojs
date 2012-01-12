@@ -2,14 +2,13 @@ var assert = require('assert'),
     fs = require('fs'),
     path = require('path'),
     GeoJS = require('../../lib/geojs'),
+    debug = require('debug')('tests'),
     parseTests = {};
     
 function checkAddress(testData, Addressing) {
     var parsedAddress = Addressing.parse(testData.input);
         
-    if (! testData.output) {
-        console.log('parsed ' + testData.input + ': ', parsedAddress);
-    } // if
+    debug('parsed ' + testData.input + ': ', parsedAddress);
         
     assert.ok(parsedAddress);
     assert.ok(testData.output, "No output address supplied");

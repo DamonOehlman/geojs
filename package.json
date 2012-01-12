@@ -3,7 +3,7 @@
     "description": "Simple Geospatial Types and Tools for Javascript",
     "main": "./index",
     "author": "Damon Oehlman",
-    "version": "0.1.8",
+    "version": "0.1.9",
     
     "repository": {
         "type": "git",
@@ -20,7 +20,8 @@
     
     "devDependencies": {
         "vows": "0.5.x",
-        "interleave": "0.x.x"
+        "interleave": "0.1.x",
+        "debug": "*"
     },
     
     "licenses": [{
