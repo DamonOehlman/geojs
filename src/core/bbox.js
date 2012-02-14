@@ -49,8 +49,8 @@ var BBox = GeoJS.BBox = function(p1, p2) {
     }
     // otherwise, assign p1 to the min pos and p2 to the max
     else {
-        this.min = p1;
-        this.max = p2;
+        this.min = typeof p1 == 'string' || p1 instanceof String ? new Pos(p1) : p1;
+        this.max = typeof p2 == 'string' || p2 instanceof String ? new Pos(p2) : p2;
     } // if..else
 };
 
