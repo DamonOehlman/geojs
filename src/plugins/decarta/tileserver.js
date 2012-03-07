@@ -4,11 +4,9 @@ function getTileConfig(userId, callback) {
     makeServerRequest(new RUOKRequest(), function(config) {
         var clientName = decartaConfig.clientName.replace(/\:.*/, ':' + (userId || '')),
             aliases = config.maxHostAliases || config.aliasCount,
-            hostName = config.hostName || config.host;
+            hostName = config.hostName || config.host,
+            hosts = [];
         
-        // reset the tile hosts
-        hosts = [];
-
         // initialise the hosts
         if (aliases) {
             for (var ii = 0; ii < aliases; ii++) {

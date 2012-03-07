@@ -3,25 +3,26 @@
     "description": "Simple Geospatial Types and Tools for Javascript",
     "main": "./index",
     "author": "Damon Oehlman",
-    "version": "0.1.9",
+    "version": "0.2.0",
     
     "repository": {
         "type": "git",
-        "url": "http://github.com/DamonOehlman/geojs.git"
+        "url": "http://github.com/sidelab/geojs.git"
     },
     
     "bugs": {
-        "url": "https://github.com/DamonOehlman/geojs/issues"
+        "url": "https://github.com/sidelab/geojs/issues"
     },
     
     "dependencies": {
-        "request": "2.2.x"
     },
     
     "devDependencies": {
-        "vows": "0.5.x",
         "interleave": "0.1.x",
-        "debug": "*"
+        "debug": "*",
+        "mocha": "*",
+        "expect.js": "0.1.x",
+        "uglify-js": "*"
     },
     
     "licenses": [{

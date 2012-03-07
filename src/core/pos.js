@@ -134,7 +134,14 @@ Pos.prototype = {
         return new Pos(newLat * RADIANS_TO_DEGREES, newLon * RADIANS_TO_DEGREES);
     },
     
-    // adapted from: http://www.movable-type.co.uk/scripts/latlong.html
+    /**
+    ## to(bearing, distance)
+
+    Return a new position from the current position based on the provided
+    bearing and distance.
+    
+    (adapted from: http://www.movable-type.co.uk/scripts/latlong.html)
+    */
     to: function(bearing, distance) {
         // if the bearing is specified as an object, then assume
         // we have been passed a position so get the bearing
