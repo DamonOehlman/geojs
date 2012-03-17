@@ -36,7 +36,7 @@ var Pos = GeoJS.Pos = function(p1, p2, radius) {
     // otherwise if a position has been passed to the position, then 
     // we will create a new position as a copy of that position
     else if (p1 && p1.lat) {
-        p2 = p1.lon;
+        p2 = p1.lon || p1.lng; // convert from the alternative format 
         p1 = p1.lat;
     } // if..else
     

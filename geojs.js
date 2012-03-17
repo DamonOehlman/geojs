@@ -78,7 +78,7 @@
         // otherwise if a position has been passed to the position, then 
         // we will create a new position as a copy of that position
         else if (p1 && p1.lat) {
-            p2 = p1.lon;
+            p2 = p1.lon || p1.lng; // convert from the alternative format 
             p1 = p1.lat;
         } // if..else
         
@@ -561,8 +561,8 @@
         }
         // otherwise, assign p1 to the min pos and p2 to the max
         else {
-            this.min = typeof p1 == 'string' || p1 instanceof String ? new Pos(p1) : p1;
-            this.max = typeof p2 == 'string' || p2 instanceof String ? new Pos(p2) : p2;
+            this.min = new Pos(p1);
+            this.max = new Pos(p2);
         } // if..else
     };
     

@@ -2,7 +2,7 @@
     "name": "geojs",
     "description": "Simple Geospatial Types and Tools for Javascript",
     "main": "./index",
-    "author": "Damon Oehlman",
+    "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
     "version": "0.2.0",
     
     "repository": {
