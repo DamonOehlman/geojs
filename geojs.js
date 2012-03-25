@@ -613,6 +613,24 @@
         },
         
         /**
+        ### contains(lat, lon)
+        
+        */
+        contains: function(lat, lon) {
+            // check if the first argument is in fact a position
+            if (typeof lat == 'object' && typeof lat.lat != 'undefined') {
+                lon = lat.lon;
+                lat = lat.lat;
+            }
+            
+            // now check to see if the lat and lon is within the bounds
+            return this.min.lat <= lat && 
+                this.max.lat >= lat &&
+                this.min.lon <= lon && 
+                this.max.lon >= lon;
+        },
+        
+        /**
         ### expand(amount)
         */
         expand: function(amount) {
