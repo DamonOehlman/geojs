@@ -1,5 +1,5 @@
 describe('GeoJS.Pos operations', function() {
-    var GeoJS = require('../geojs'),
+    var GeoJS = require('../pkg/cjs/geojs'),
         expect = require('./helpers/expectgeo'),
         testPos;
 

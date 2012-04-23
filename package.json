@@ -18,11 +18,9 @@
     },
     
     "devDependencies": {
-        "interleave": "0.1.x",
         "debug": "*",
-        "mocha": "*",
-        "expect.js": "0.1.x",
-        "uglify-js": "*"
+        "mocha": "1.x.x",
+        "expect.js": "0.1.x"
     },
     
     "licenses": [{

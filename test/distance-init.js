@@ -1,5 +1,5 @@
 describe('GeoJS.Distance initialization', function() {
-    var GeoJS = require('../geojs'),
+    var GeoJS = require('../pkg/cjs/geojs'),
         expect = require('expect.js');
 
     it('can be initialized from an integer value', function() {

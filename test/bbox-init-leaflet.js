@@ -1,5 +1,5 @@
 describe('GeoJS.BBox initialization (from leaflet L.LatLngBounds)', function() {
-    var GeoJS = require('../geojs'),
+    var GeoJS = require('../pkg/cjs/geojs'),
         expect = require('expect.js'),
         dummyMin = { lat: -37, lng: 112 },
         dummyMax = { lat: -7, lng: 156 };
