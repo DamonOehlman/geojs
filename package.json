@@ -1,30 +1,30 @@
 {
-    "name": "geojs",
-    "description": "Simple Geospatial Types and Tools for Javascript",
-    "main": "./index",
-    "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
-    "version": "0.2.0",
-    
-    "repository": {
-        "type": "git",
-        "url": "http://github.com/sidelab/geojs.git"
-    },
-    
-    "bugs": {
-        "url": "https://github.com/sidelab/geojs/issues"
-    },
-    
-    "dependencies": {
-    },
-    
-    "devDependencies": {
-        "debug": "*",
-        "mocha": "1.x.x",
-        "expect.js": "0.1.x"
-    },
-    
-    "licenses": [{
-        "type": "MIT",
-        "url": "http://github.com/DamonOehlman/geojs/raw/LICENCE"
-    }]
+  "name": "geojs",
+  "description": "Simple Geospatial Types and Tools for Javascript",
+  "main": "./index",
+  "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
+  "version": "0.2.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sidelab/geojs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sidelab/geojs/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "debug": "*",
+    "mocha": "1.x.x",
+    "expect.js": "0.1.x"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/DamonOehlman/geojs/raw/LICENCE"
+    }
+  ],
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
 }
