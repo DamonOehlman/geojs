@@ -1,4 +1,4 @@
-// set: export=GeoJS
+//=set module "GeoJS"
 
 var GeoJS = {};
 

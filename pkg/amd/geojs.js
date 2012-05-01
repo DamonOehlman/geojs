@@ -1,4 +1,6 @@
-define('geojs', [], function() {
+define('GeoJS', [], function() {
+  
+  
   var GeoJS = {};
   
   var LAT_VARIABILITIES = [
@@ -738,8 +740,6 @@ define('geojs', [], function() {
           return this.meters + 'm';
       }
   };
-  
-  (typeof module != "undefined" && module.exports) ? (module.exports = GeoJS) : (glob.GeoJS = GeoJS);
 
-  return geojs;
+  return GeoJS;
 });

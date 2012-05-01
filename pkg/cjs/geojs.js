@@ -1,3 +1,5 @@
+
+
 var GeoJS = {};
 
 var LAT_VARIABILITIES = [
@@ -738,6 +740,4 @@ Distance.prototype = {
     }
 };
 
-(typeof module != "undefined" && module.exports) ? (module.exports = GeoJS) : (glob.GeoJS = GeoJS);
-
-module.exports = geojs;
+module.exports = GeoJS;
