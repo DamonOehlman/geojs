@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 build:
-	@interleave src --package
+	@interleave src/geojs.js --package
 
 test:
 	@mocha --reporter spec

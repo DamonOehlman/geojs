@@ -1,4 +1,6 @@
 (function (glob) {
+  
+  
   var GeoJS = {};
   
   var LAT_VARIABILITIES = [
@@ -739,8 +741,6 @@
       }
   };
   
-  (typeof module != "undefined" && module.exports) ? (module.exports = GeoJS) : (glob.GeoJS = GeoJS);
-  
-  glob.geojs = geojs;
+  glob.GeoJS = GeoJS;
   
 })(this);
