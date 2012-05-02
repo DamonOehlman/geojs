@@ -504,38 +504,42 @@ define('GeoJS', [], function() {
       }
   };
   var BBox = GeoJS.BBox = function(p1, p2) {
+      var lat1 = MAX_LAT, 
+          lon1 = MAX_LON,
+          lat2 = MIN_LAT,
+          lon2 = MIN_LON;
+          
+      // ensure the constructor has been called
+      if (!(this instanceof BBox)) return new BBox(p1, p2);
+      
       // if p1 is an array, then calculate the bounding box for the positions supplied
       if (p1 && p1.splice) {
-          var padding = p2,
-              minPos = new Pos(MAX_LAT, MAX_LON),
-              maxPos = new Pos(MIN_LAT, MIN_LON);
-  
+          var padding = p2 || 0;
+          
           for (var ii = p1.length; ii--; ) {
               var testPos = typeof p1[ii] == 'string' ? new Pos(p1[ii]) : p1[ii];
               
               if (testPos) {
-                  if (testPos.lat < minPos.lat) {
-                      minPos.lat = testPos.lat;
+                  if (testPos.lat < lat1) {
+                      lat1 = testPos.lat;
                   } // if
   
-                  if (testPos.lat > maxPos.lat) {
-                      maxPos.lat = testPos.lat;
+                  if (testPos.lat > lat2) {
+                      lat2 = testPos.lat;
                   } // if
   
-                  if (testPos.lon < minPos.lon) {
-                      minPos.lon = testPos.lon;
+                  if (testPos.lon < lon1) {
+                      lon1 = testPos.lon;
                   } // if
   
-                  if (testPos.lon > maxPos.lon) {
-                      maxPos.lon = testPos.lon;
+                  if (testPos.lon > lon2) {
+                      lon2 = testPos.lon;
                   } // if
               } // if
           } // for
           
-          // assign the min and max pos so the size can be calculated
-          this.min = minPos;
-          this.max = maxPos;
-          
+          /*
+          REMOVED: This is very unexpected functionality :/
           // if the amount of padding is undefined, then calculate
           if (typeof padding == 'undefined') {
               var size = this.size();
@@ -543,20 +547,31 @@ define('GeoJS', [], function() {
               // update padding to be a third of the max size
               padding = Math.max(size.x, size.y) * 0.3;
           } // if
+          */
   
           // update the min and max
-          this.min = new Pos(minPos.lat - padding, (minPos.lon - padding) % 360);
-          this.max = new Pos(maxPos.lat + padding, (maxPos.lon + padding) % 360);
+          lat1 = lat1 - padding;
+          lon1 = (lon1 - padding) % 360;
+          lat2 = lat2 + padding;
+          lon2 = (lon2 + padding) % 360;
       }
       else if (p1 && p1.min) {
-          this.min = new Pos(p1.min);
-          this.max = new Pos(p1.max);
+          lat1 = p1.min.lat;
+          lon1 = p1.min.lon;
+          lat2 = p1.max.lat;
+          lon2 = p1.max.lon;
       }
       // otherwise, assign p1 to the min pos and p2 to the max
       else {
-          this.min = new Pos(p1);
-          this.max = new Pos(p2);
+          lat1 = p1.lat;
+          lon1 = p1.lng || p1.lon;
+          lat2 = p2.lat;
+          lon2 = p2.lng || p2.lon;
       } // if..else
+      
+      // ensure the min and max are properly normalized
+      this.min = new Pos(Math.min(lat1, lat2), Math.min(lon1, lon2));
+      this.max = new Pos(Math.max(lat1, lat2), Math.max(lon1, lon2));
   };
   
   BBox.prototype = {
