@@ -3,7 +3,7 @@
   "description": "Simple Geospatial Types and Tools for Javascript",
   "main": "pkg/cjs/geojs.js",
   "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "repository": {
     "type": "git",
     "url": "git://github.com/sidelab/geojs.git"
