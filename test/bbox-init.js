@@ -2,9 +2,11 @@ describe('GeoJS.BBox initialization (using Leaflet style Positions)', function()
     var GeoJS = require('../pkg/cjs/geojs'),
         expect = require('expect.js'),
         dummyMin = { lat: -37, lon: 112 },
-        dummyMax = { lat: -7, lon: 156 };
+        dummyMax = { lat: -7, lon: 156 },
         dummyMinLeaflet = { lat: -37, lng: 112 },
-        dummyMaxLeaflet = { lat: -7, lng: 156 };
+        dummyMaxLeaflet = { lat: -7, lng: 156 },
+        stringMin = '-37 112',
+        stringMax = '-7 156';
         
     function checkBounds(bounds) {
         expect(bounds).to.be.ok();
@@ -32,5 +34,29 @@ describe('GeoJS.BBox initialization (using Leaflet style Positions)', function()
     
     it('should be able to create a valid bbox (Leaflet style - inverted input)', function() {
         checkBounds(GeoJS.BBox(dummyMaxLeaflet, dummyMinLeaflet));
+    });
+    
+    it('should be able to create a valid bbox (mixed Leaflet + default)', function() {
+        checkBounds(GeoJS.BBox(dummyMinLeaflet, dummyMax));
+    });
+    
+    it('should be able to create a valid bbox (mixed Leaflet + default - inverted input)', function() {
+        checkBounds(GeoJS.BBox(dummyMaxLeaflet, dummyMin));
+    });
+
+    it('should be able to create a valid bbox (string values)', function() {
+        checkBounds(GeoJS.BBox(stringMin, stringMax));
+    });
+    
+    it('should be able to create a valid bbox (string values - inverted input)', function() {
+        checkBounds(GeoJS.BBox(stringMax, stringMin));
+    });
+    
+    it('should be able to create a valid bbox (mixed string + default)', function() {
+        checkBounds(GeoJS.BBox(dummyMin, stringMax));
+    });
+    
+    it('should be able to create a valid bbox (mixed string + default - inverted input)', function() {
+        checkBounds(GeoJS.BBox(dummyMax, stringMin));
     });
 });

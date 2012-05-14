@@ -58,6 +58,16 @@ var BBox = GeoJS.BBox = function(p1, p2) {
     }
     // otherwise, assign p1 to the min pos and p2 to the max
     else {
+        // if p1 is a string, then convert to a position
+        if (typeof p1 == 'string' || p1 instanceof String) {
+            p1 = new Pos(p1);
+        }
+        
+        // apply the same string test to p2
+        if (typeof p2 == 'string' || p2 instanceof String) {
+            p2 = new Pos(p2);
+        }
+        
         lat1 = p1.lat;
         lon1 = p1.lng || p1.lon;
         lat2 = p2.lat;

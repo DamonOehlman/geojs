@@ -45,7 +45,7 @@ var Line = GeoJS.Line = function(positions) {
 
 Line.prototype = {
     constructor: Line,
-  
+    
     distance: function() {
         var totalDist = 0,
             segmentDistances = [],
@@ -57,7 +57,7 @@ Line.prototype = {
             distance = this.positions[ii].distanceTo(this.positions[ii + 1]);
             
             // update the total distance and segment distances
-            totalDist += segmentDistances[ii] = distance;;
+            totalDist += segmentDistances[ii] = distance;
         } // for
 
         // return a distance object
