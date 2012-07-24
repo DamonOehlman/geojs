@@ -1,4 +1,4 @@
-//=set module "GeoJS"
+//=set moduleName "GeoJS"
 
 var GeoJS = {};
 

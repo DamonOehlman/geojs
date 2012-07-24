@@ -1,5 +1,5 @@
 describe('GeoJS.BBox initialization (using Leaflet style Positions)', function() {
-    var GeoJS = require('../pkg/cjs/geojs'),
+    var GeoJS = require('../dist/commonjs/geojs'),
         expect = require('expect.js'),
         dummyMin = { lat: -37, lon: 112 },
         dummyMax = { lat: -7, lon: 156 },

@@ -1,5 +1,5 @@
 describe('GeoJS.Line operations', function() {
-    var GeoJS = require('../pkg/cjs/geojs'),
+    var GeoJS = require('../dist/commonjs/geojs'),
         expect = require('./helpers/expectgeo'),
         testline,
         segmentMeters = [36, 122, 29];

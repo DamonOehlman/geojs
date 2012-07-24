@@ -1,4 +1,6 @@
 
+// req: 
+
 
 var GeoJS = {};
 
@@ -764,5 +766,3 @@ Distance.prototype = {
         return this.meters + 'm';
     }
 };
-
-module.exports = GeoJS;
