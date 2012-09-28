@@ -6,10 +6,10 @@
   "version": "0.2.4",
   "repository": {
     "type": "git",
-    "url": "git://github.com/sidelab/geojs.git"
+    "url": "git://github.com/DamonOehlman/geojs.git"
   },
   "bugs": {
-    "url": "https://github.com/sidelab/geojs/issues"
+    "url": "https://github.com/DamonOehlman/geojs/issues"
   },
   "dependencies": {},
   "devDependencies": {
