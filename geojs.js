@@ -1,6 +1,23 @@
+/*
+ * geojs v0.2.5
+ * build   => 2012-10-29T23:01:41.512Z
+ * 
+ * 
+ * 
+ * Licensed under MIT (http://github.com/DamonOehlman/geojs/raw/LICENCE) license.
+ *  
+ */ 
 
-// req: 
-(function(glob) {
+// umdjs returnExports pattern: https://github.com/umdjs/umd/blob/master/returnExports.js
+(function (root, factory) {
+    if (typeof exports === 'object') {
+        module.exports = factory();
+    } else if (typeof define === 'function' && define.amd) {
+        define([], factory);
+    } else {
+        root['GeoJS'] = factory();
+    }
+}(this, function () {
     
     
     var GeoJS = {};
@@ -768,7 +785,5 @@
         }
     };
     
-    if (typeof GeoJS != 'undefined') {
-        glob.GeoJS = GeoJS;
-    }
-}(this));
+    return typeof GeoJS != 'undefined' ? GeoJS : undefined;
+}));

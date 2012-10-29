@@ -14,7 +14,7 @@
   "dependencies": {},
   "devDependencies": {
     "debug": "*",
-    "mocha": "1.x.x",
+    "mocha": "1.6.x",
     "expect.js": "0.1.x"
   },
   "licenses": [
@@ -24,7 +24,7 @@
     }
   ],
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "engines": {
     "node": "*"

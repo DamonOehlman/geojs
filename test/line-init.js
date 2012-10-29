@@ -1,5 +1,5 @@
 describe('GeoJS.Line initialization', function() {
-    var GeoJS = require('../dist/commonjs/geojs'),
+    var GeoJS = require('../geojs'),
         expect = require('expect.js'),
         testPositions,
         testPositionsText,

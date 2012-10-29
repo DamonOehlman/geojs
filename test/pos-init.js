@@ -1,5 +1,5 @@
 describe('GeoJS.Pos initialization', function() {
-    var GeoJS = require('../dist/commonjs/geojs'),
+    var GeoJS = require('../geojs'),
         expect = require('expect.js');
 
     it('should be able to create a new position from numeric values', function() {
