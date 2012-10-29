@@ -1,0 +1,13 @@
+{
+  "name": "geojs",
+  "repo": "DamonOehlman/geojs",
+  "description": "Simple Geospatial Types and Tools for Javascript",
+  "version": "0.2.5",
+  "keywords": [
+    "geospatial"
+  ],
+  "main": "geojs.js",
+  "scripts": [
+    "geojs.js"
+  ]
+}
