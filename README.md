@@ -31,6 +31,18 @@ var p = new geojs.Pos(-27, 153);
 var p = new geojs.Pos('-27 153'); // comma delimited ok too
 ```
 
+### Latitude and Longitude provided as a plain old object
+
+```js
+var p = new geojs.Pos({ lat: 27, lon: 153 });
+```
+
+OR:
+
+```js
+var p = new geojs.Pos({ lat: 27, lng: 153 });
+```
+
 #### Clone from an existing Pos object
 
 ```js
