@@ -31,7 +31,7 @@ var p = new geojs.Pos(-27, 153);
 var p = new geojs.Pos('-27 153'); // comma delimited ok too
 ```
 
-### Latitude and Longitude provided as a plain old object
+#### Latitude and Longitude provided as a plain old object
 
 ```js
 var p = new geojs.Pos({ lat: 27, lon: 153 });
@@ -47,6 +47,12 @@ var p = new geojs.Pos({ lat: 27, lng: 153 });
 
 ```js
 var p = new geojs.Pos(p1);
+```
+
+#### Parse from an array of Position strings
+
+```js
+var positions = ['-27 153', '15 167'].map(Pos);
 ```
 
 ## License(s)
