@@ -45,8 +45,8 @@ function BBox(a, b, c, d) {
   // if we have been provided 4 arguments
   // then we are dealing with the minlat, minlon, maxlat, maxlon case
   else if (arguments.length === 4) {
-    b = new Pos(c, d);
     a = new Pos(a, b);
+    b = new Pos(c, d);
   }
   // if a and b are both position objects, then we are gold
   else if ((a instanceof Pos) && (b instanceof Pos)) {

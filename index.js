@@ -21,5 +21,8 @@
   ```
   npm install git://github.com/DamonOehlman/geojs.git#1.x --save
   ```
-  
+
 **/
+
+exports.Pos = require('./pos');
+exports.BBox = require('./bbox');
