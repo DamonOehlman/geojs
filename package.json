@@ -16,7 +16,8 @@
     "tape": "~1.1.0"
   },
   "scripts": {
-    "test": "node test/all.js"
+    "test": "node test/all.js",
+    "gendocs": "gendocs > README.md"
   },
   "keywords": [
     "geo",
