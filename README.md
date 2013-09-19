@@ -20,6 +20,30 @@ npm install it using a `git://` url at present:
 npm install git://github.com/DamonOehlman/geojs.git#1.x --save
 ```
 
+### BBox(args*)
+
+Create a new geospatial bounding box.  A bounding box describes two 
+geospatial positions (a min and a max) that  describe a rectangular region.
+
+You can think of it something like the simple diagram shown below:
+
+```
+     __________ max
+    |          |
+    |          |
+    |          |
+min  __________
+
+```
+
+Within geojs a bounding box can be constructed in a number of ways:
+
+#### Providing min and max positions as arguments
+
+```js
+var bbox = new geojs.BBox(min, max);
+```
+
 ### Pos(p1, p2)
 
 Create a new geospatial position object. The constructor can handle a number
