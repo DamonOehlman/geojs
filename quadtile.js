@@ -8,15 +8,7 @@
   This is a latlon -> 32bit
   [quadtile](http://wiki.openstreetmap.org/wiki/QuadTiles) converter.
 
-  #### Example Usage
-
-  ```js
-  // require the quadtile module using default precision (32bit)
-  var quadtile = require('quadtile');
-
-  // convert a latitude and longitude into a 32bit quadtile
-  console.log(quadtile(-33.876403, 151.205349));
-  ```
+  <<< examples/quadtile.js
 
 **/
 var MASKS  = [0x55555555, 0x33333333, 0x0F0F0F0F, 0x00FF00FF, 0x0000FFFF];
@@ -43,7 +35,8 @@ var quadtile = module.exports = function(lat, lon) {
 };
 
 /**
-  #### quadtile.reverse
+  ### quadtile.reverse
+
 
 **/
 quadtile.reverse = function(z) {
