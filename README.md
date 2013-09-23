@@ -85,6 +85,27 @@ var p = new geojs.Pos(p1);
 var positions = ['-27 153', '15 167'].map(Pos);
 ```
 
+### quadtile
+
+```js
+var quadtile = require('geojs/quadtile');
+```
+
+This is a latlon -> 32bit
+[quadtile](http://wiki.openstreetmap.org/wiki/QuadTiles) converter.
+
+#### Example Usage
+
+```js
+// require the quadtile module using default precision (32bit)
+var quadtile = require('quadtile');
+
+// convert a latitude and longitude into a 32bit quadtile
+console.log(quadtile(-33.876403, 151.205349));
+```
+
+#### quadtile.reverse
+
 ## License(s)
 
 ### MIT
