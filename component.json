@@ -2,7 +2,7 @@
   "name": "geojs",
   "repo": "DamonOehlman/geojs",
   "description": "Simple Geospatial Types and Tools for Javascript",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "keywords": [
     "geospatial"
   ],
