@@ -1,58 +1,16 @@
-var Distance = GeoJS.Distance = function(value) {
-    if (typeof value == 'string') {
-        var uom = (value.replace(/\d|\.|\s/g, '') || 'm').toLowerCase(),
-            multipliers = {
-                km: 1000
-            };
+// @flow
+import type { PosRecord } from './position.js';
+import { DEGREES_TO_RADIANS, KM_PER_RAD } from './constants.js';
 
-        value = parseFloat(value) * (multipliers[uom] || 1);
-    } // if
-    
-    this.meters = value || 0;
-};
+class Distance {
+  static calculate(from: PosRecord, to: PosRecord): number {
+    const halfDeltaLat = ((to.lat - from.lat) * DEGREES_TO_RADIANS) / 2;
+    const halfDeltaLon = ((to.lon - from.lon) * DEGREES_TO_RADIANS) / 2;
+    const a = Math.sin(halfDeltaLat) * Math.sin(halfDeltaLat) +
+            (Math.cos(from.lat * DEGREES_TO_RADIANS) * Math.cos(to.lat * DEGREES_TO_RADIANS)) *
+            (Math.sin(halfDeltaLon) * Math.sin(halfDeltaLon));
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-Distance.prototype = {
-    /**
-    ### add(args*)
-    */
-    add: function() {
-        var total = this.meters;
-        
-        for (var ii = arguments.length; ii--; ) {
-            var dist = typeof arguments[ii] == 'string' ? 
-                        new Distance(arguments[ii]) : arguments[ii];
-
-            total += dist.meters;
-        } // for
-        
-        return new Distance(total);
-    },
-    
-    
-    /**
-    ### radians(value)
-    */
-    radians: function(value) {
-        // if the value is supplied, then set then calculate meters from radians
-        if (typeof value != 'undefined') {
-            this.meters = value * M_PER_RAD;
-            
-            return this;
-        }
-        // otherwise, return the radians from the meter value
-        else {
-            return this.meters / M_PER_RAD;
-        } // if..else
-    },
-    
-    /**
-    ### toString()
-    */
-    toString: function() {
-        if (this.meters > M_PER_KM) {
-            return ((this.meters / 10 | 0) / 100) + 'km';
-        } // if
-        
-        return this.meters + 'm';
-    }
-};
+    return KM_PER_RAD * c;
+  }
+}

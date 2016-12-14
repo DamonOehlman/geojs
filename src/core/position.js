@@ -1,42 +1,53 @@
 // @flow
-export type Position = {|
-  +lat: number,
-  +lon: number
+import { MAX_LON, MIN_LON } from './constants.js';
+
+export type PosRecord = {|
+  lat: number,
+  lon: number
 |};
 
-export class PosOps {
-  static fromString(input: string): Position {
+// format lon, lat
+export type PosTuple = [ number, number ];
+
+export class Position {
+  static fromString(input: string): PosRecord {
     const parts = input.split(/(\s|\,)/)
       .map(val => parseInt(val, 10))
       .filter(val => !isNaN(val));
 
-    if (parts.length > 2) {
+    if (parts.length !== 2) {
       throw new Error(`unable to parse ${input} into a position value`);
     }
 
-    return { lat: parts[0], lon: parts[1] };
+    return Position.fromTuple(parts);
   }
 
-  static clone(input: Position): Position {
-    return { lat: input.lat, lon: input.lon };
+  static fromTuple(input: PosTuple): PosRecord {
+    return { lat: input[1], lon: input[0] };
   }
 
-  static equalTo(a: Position): Position => boolean {
-    return b => PosOps.equal(a, b);
+  static clone(input: PosRecord): PosRecord {
+    // clone the pos record but ensure the longitude
+    return { lat: input.lat, lon: input.lon % 360 };
   }
 
-  static equal(a: Position, b: Position): boolean {
+  static equalTo(a: PosRecord): PosRecord => boolean {
+    return b => Position.equal(a, b);
+  }
+
+  static equal(a: PosRecord, b: PosRecord): boolean {
     return a.lat == b.lat && a.lon == b.lon;
   }
 
-  static empty(pos: Position): boolean {
+  static empty(pos: PosRecord): boolean {
     return pos.lat == 0 && pos.lon == 0;
   }
+
+  static normalize(pos: PosRecord): PosRecord {
+    let lon = pos.lon;
+    while (lon < MIN_LON) { lon += 360; }
+    while (lon > MAX_LON) { lon -= 360; }
+
+    return { lat: pos.lat, lon };
+  }
 }
-
-const testPositions = [
-  { lat: 5, lon: 30 },
-  { lat: 6, lon: 50 }
-];
-
-testPositions.find(PosOps.equalTo({ lat: 5, lon: 38 }));
